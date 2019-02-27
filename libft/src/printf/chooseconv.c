@@ -19,9 +19,9 @@ char	*chooseconv(va_list va, t_arg *list)
 	if (list->conv == 6)
 		return (convuimx((unsigned long)va_arg(va, void*)));
 	if (list->conv == 10 && list->specifier != 3)
-		return (convc((int)va_arg(va, void*)));
+		return (convc(va_arg(va, int)));
 	if (list->conv == 11 || list->conv == 10)
-		return (convwchar((wchar_t)va_arg(va, void*)));
+		return (convwchar(*(wchar_t*)va_arg(va, void*)));
 	if (list->conv == 12 && list->specifier != 3)
 		return ((char*)va_arg(va, void*));
 	if (list->conv == 13 || list->conv == 12)
@@ -36,16 +36,16 @@ char	*convsigned(va_list va, t_arg *list)
 	if (list->specifier == 3 || list->conv == 8)
 		return (convim((long)va_arg(va, void*)));
 	if (list->specifier == 0)
-		return (convim((char)va_arg(va, void*)));
+		return (convim(*(char*)va_arg(va, void*)));
 	if (list->specifier == 1)
-		return (convim((short)va_arg(va, void*)));
+		return (convim(va_arg(va, int)));
 	if (list->specifier == 2)
 		return (convim((long long)va_arg(va, void*)));
 	if (list->specifier == 4)
 		return (convim((size_t)va_arg(va, void*)));
 	if (list->specifier == 5)
 		return (convim((intmax_t)va_arg(va, void*)));
-	return (convim((int)va_arg(va, void*)));
+	return (convim(va_arg(va, int)));
 }
 
 char	*convunsigned(va_list va, t_arg *list)
@@ -60,17 +60,17 @@ char	*convunsigned(va_list va, t_arg *list)
 	if (list->specifier == 3 || (list->conv > 2 && list->conv < 5))
 	{
 		return (um[list->conv > 2 ? list->conv - 3 : list->conv](
-		(unsigned long)va_arg(va, void*)));
+		va_arg(va, unsigned long)));
 	}
 	if (list->specifier == 0)
-		return (um[x ? x : list->conv]((unsigned char)va_arg(va, void*)));
+		return (um[x ? x : list->conv](va_arg(va, int)));
 	if (list->specifier == 1)
-		return (um[x ? x : list->conv]((unsigned short)va_arg(va, void*)));
+		return (um[x ? x : list->conv](va_arg(va, int)));
 	if (list->specifier == 2)
 		return (um[x ? x : list->conv]((unsigned long long)va_arg(va, void*)));
 	if (list->specifier == 4)
 		return (um[x ? x : list->conv]((uintmax_t)va_arg(va, void*)));
 	if (list->specifier == 5)
 		return (um[x ? x : list->conv]((size_t)va_arg(va, void*)));
-	return (um[x ? x : list->conv]((unsigned int)va_arg(va, void*)));
+	return (um[x ? x : list->conv](va_arg(va, uintmax_t)));
 }

@@ -185,7 +185,7 @@ SRC += \
 	   tree/btree_search_item.c \
 	   tree/btree_level_count.c \
 	   tree/btree_insert_data.c \
-	   tree/btree_remove_data.c 
+	   tree/btree_remove_data.c
 
 SRC +=\
 			 unix/stat/is_directory.c\
@@ -231,7 +231,7 @@ fclean: clean
 	@/bin/rm -f $(NAME)
 
 re:
-	make fclean 
+	make fclean
 	make all
 
 
