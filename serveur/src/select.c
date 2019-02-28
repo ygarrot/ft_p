@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:27:48 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/02/28 12:17:18 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/02/28 12:31:35 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ int read_from_client (int filedes)
 	return 0;
 }
 
-int	handle_active_socket(fd_set active_fd_set, int i)
+int	handle_active_socket(fd_set *active_fd_set, int i)
 {
 	if (read_from_client(i) < 0)
 	{
 		close (i);
-		FD_CLR (i, &active_fd_set);
+		FD_CLR (i, active_fd_set);
 	}
 	return 0;
 }
 
-int handle_new_socket(fd_set active_fd_set, int sock)
+int handle_new_socket(fd_set *active_fd_set, int sock)
 {
 	int				new;
   	t_sockaddr_in	clientname;
@@ -61,21 +61,25 @@ int handle_new_socket(fd_set active_fd_set, int sock)
 	ft_printf ("Server: connect from host %s, port %hd.\n",
 			inet_ntoa (clientname.sin_addr),
 			ntohs (clientname.sin_port));
-	FD_SET (new, &active_fd_set);
+	FD_SET (new, active_fd_set);
 	return 0;
 }
 
-int		eval_loop(fd_set active_fd_set, fd_set read_fd_set, int sock)
+int		eval_loop(fd_set *active_fd_set, fd_set *read_fd_set, int sock)
 {
 	int		i;
 
 	i = -1;
 	while (++i < FD_SETSIZE)
 	{
-		if (FD_ISSET (i, &read_fd_set))
-			handle_new_socket(active_fd_set, sock);
-		else
-			handle_active_socket(active_fd_set, i);
+		if (FD_ISSET (i, read_fd_set))
+		{
+			ft_printf("test");
+			if (i == sock)
+				handle_new_socket(active_fd_set, sock);
+			else
+				handle_active_socket(active_fd_set, i);
+		}
 	}
 	return 0;
 }
@@ -104,7 +108,7 @@ int		init_serveur()
 			ft_printf ("select");
 			exit (EXIT_FAILURE);
 		}
-		eval_loop(active_fd_set, read_fd_set, sock);
+		eval_loop(&active_fd_set, &read_fd_set, sock);
 	}
 	return 0;
 }
