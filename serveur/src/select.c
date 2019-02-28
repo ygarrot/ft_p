@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:27:48 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/02/28 12:31:35 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/02/28 15:39:50 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int read_from_client (int filedes)
 	int nbytes;
 
 	nbytes = read (filedes, buffer, MAXMSG);
+	buffer[nbytes] = '\0';
 	if (nbytes < 0)
 	{
 		/* Read error. */
@@ -31,6 +32,10 @@ int read_from_client (int filedes)
 	{
 		/* Data read. */
 		ft_printf ("Server: got message: `%s'\n", buffer);
+		char *arg[] = {"..", NULL};
+		ft_cd(arg, &g_env);
+		char *arg2[] = {"ls", NULL};
+		dprintf(filedes, "%s\n", redirect_command("/bin/ls", arg2));
 		return 0;
 	}
 	return 0;
