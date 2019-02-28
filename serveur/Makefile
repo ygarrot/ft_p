@@ -6,14 +6,14 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/02/27 12:28:45 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/02/27 14:38:41 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = serveur 
 
 FLAGS = -Wall -Werror -Wextra
-
+FLAGS += -fsanitize=address,undefined -g3
 SRC_FOLDER = src/
 
 INCLUDE =  includes/\

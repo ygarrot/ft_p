@@ -1,0 +1,11 @@
+◦ socket(2), open(2), close(2), setsockopt(2), getsockname(2)
+◦ getprotobyname(3), gethostbyname(3)
+◦ bind(2), connect(2) : client, listen(2) : serveur, accept(2) 
+◦ htons(3), htonl(3), ntohs(3), ntohl(3) host to network short long ...
+◦ inet_addr(3), inet_ntoa(3)
+◦ send(2), recv(2), execv(2), execl(2), dup2(2), wait4(2)
+◦ fork(2), getcwd(3), exit(3), printf(3), signal(3)
+◦ mmap(2), munmap(2), lseek(2), fstat(2)
+◦ opendir(3), readdir(3), closedir(3)
+◦ chdir(2), mkdir(2), unlink(2)
+◦ select(2), FD_CLR, FD_COPY, FD_ISSET, FD_SET, FD_ZERO
