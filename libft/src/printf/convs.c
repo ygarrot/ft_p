@@ -54,7 +54,7 @@ char			*convwchar(wchar_t v)
 	str[size--] = '\0';
 	if (size > 0)
 	{
-		str[temp2++] = (char)(v >> size * 6 | 192 + (size > 1 ? size * 16 : 0));
+		str[temp2++] = (char)(((v >> size * 6) | 192) + (size > 1 ? size * 16 : 0));
 		while (size-- > 0)
 			str[temp2++] = (char)((v >> size * 6 & 0x3f) | 0x80);
 	}

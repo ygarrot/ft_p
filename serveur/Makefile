@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = serveur 
+NAME = serveur
 
 FLAGS = -Wall -Werror -Wextra
 FLAGS += -fsanitize=address,undefined -g3
