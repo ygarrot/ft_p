@@ -12,19 +12,15 @@
 
 #include "serveur.h"
 
+/* from src: PUT __FILE__ NEW_LINE */
+/* __FILE__ content */
+
+
 int		get(int fd, char *file_name)
 {
-	
-	if ((ptr = mmap(0, buf.st_size,
-					PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
-		return (NULL);
-	new_file = open(file_name, O_WRONLY);
-	write(new_file, ptr, ft_strlen(ptr));
-	ft_memdel((void**)&ptr);
-}
-
-int		get_v1(char *str)
-{
-	char **arg = {str, NULL};
-	redirect_command("/bin/echo", arg);
+	if ((new_file_fd = open(file_name, O_WRONLY)) < 0)
+		return (EXIT_FAILURE);
+	ft_fdcpy(fd, new_file_fd);
+	if (close(new_file_fd) < -1)
+		return (EXIT_FAILURE);
 }

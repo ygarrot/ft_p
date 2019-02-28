@@ -12,12 +12,26 @@
 
 #include "serveur.h"
 
+/* in our case src is client and dest is server */
+/* from src : GET __FILE__ */
+/* from dest : __FILE__ content line by line */
+
+to server: GET
+int		fd_cpy(int src, int dest)
+{
+	char	buf[BUF_SIZE];
+
+	while ((ret = read(fd, buf, BUF_SIZE)) > 0)
+		write(fd, buf, ret);
+	return (ret);
+}
+
 int		put(int fd, char *file_name)
 {
-	char	*ptr;
-
-	if (!(mmap_file(file_name))
+	if ((new_file_fd = open(file_name, O_WRONLY)) < 0)
 		return (EXIT_FAILURE);
-	write(fd, ptr, ft_strlen(ptr));
-	ft_memdel((void**)&ptr);
+	ft_fdcpy(fd, new_file_fd);
+	if (close(new_file_fd) < -1)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
