@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:27:48 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/01 12:49:28 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/01 17:23:52 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,25 @@ int read_from_client (int filedes)
 		ft_printf ("Server: got message: `%s'\n", buffer);
 		/* char *arg[] = {"..", NULL}; */
 		/* ft_cd(arg, &g_env); */
-		/* char *arg2[] = {"env", "touch new_file; echo", "test > new_file", NULL}; */
-		/* dprintf(filedes, "%s\n", redirect_command("/usr/bin/env", arg2)); */
-		put(filedes, "tmp");
+	/* write(filedes, "200", 3); */
+		/* put(filedes, "tmp"); */
+		if (ft_strstr(buffer, "EPSV"))
+	   		dprintf(filedes, "%d\r\n", 150);
+		if (ft_strstr(buffer, "EPSV"))
+	   		dprintf(filedes, "%d\r\n", 227);
+		else
+	   		dprintf(filedes, "%d\r\n", 229);
 		return 0;
 	}
 	return 0;
 }
 
-int	handle_active_socket(fd_set *active_fd_set, int i)
+int	handle_active_socket(fd_set *active_fd_set, int sock)
 {
-	if (read_from_client(i) < 0)
+	if (read_from_client(sock) < 0)
 	{
-		close (i);
-		FD_CLR (i, active_fd_set);
+		close (sock);
+		FD_CLR (sock, active_fd_set);
 	}
 	return 0;
 }
@@ -70,7 +75,22 @@ int handle_new_socket(fd_set *active_fd_set, int sock)
 			inet_ntoa (clientname.sin_addr),
 			ntohs (clientname.sin_port));
 	FD_SET (new, active_fd_set);
-	write(sock, "test", 4);
+	/* int i = 0; */
+	/* while (++i < 600) */
+		/* { */
+			/* printf("%d\n", i); */
+	   /* dprintf(new, "%d\r\n", i); */
+	   		/* usleep(60000); */
+		/* } */
+	/* write(new, "500 OK \r\n\n", 5); */
+	/* write(new, "500 OK \r\n", 5); */
+	/* write(new, "500 OK \r\n", 5); */
+	write(new, "0\r\n", 3);
+	/* write(sock, "500 OK\r\n", 5); */
+	/* send(new, "200 OK\r\n", 5, 0); */
+	/* ft_printf("new %d\n", new); */
+	/* send(sock, "200 OK\r\n", 5, 0); */
+	/* write(sock, "200\r\n", 5); */
 	return 0;
 }
 
@@ -83,7 +103,7 @@ int		eval_loop(fd_set *active_fd_set, fd_set *read_fd_set, int sock)
 	{
 		if (FD_ISSET (i, read_fd_set))
 		{
-			ft_printf("test");
+			ft_printf("received message from: %d\n", i);
 			if (i == sock)
 				handle_new_socket(active_fd_set, sock);
 			else

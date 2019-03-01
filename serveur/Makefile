@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/01 14:16:54 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/01 14:39:39 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ INCLUDE =  includes/\
 
 OBJ_DIR = obj
 
-SRC_FP =\
+SRC =\
 		../../get.c\
 		../../put.c\
 		redirect_command.c\
@@ -46,15 +46,17 @@ LIBFT = ../libft/libft.a
 all: $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir obj || true
 	@gcc $(FLAGS) -o $@ -c $<  -I $(INCLUDE)
 
-$(NAME): $(OBJS)
+$(NAME): obj_dir $(OBJS) 
 	@make -C ../libft
 	@gcc $(FLAGS) -o $(NAME) $(OBJS) -I $(INCLUDE) -L ../libft -l ft
 
+obj_dir:
+	@mkdir obj || true
+
 clean:
-	@rm -f $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR)
 	@make -C ../libft clean
 
 fclean: clean
