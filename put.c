@@ -6,29 +6,36 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:26:43 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/02/28 17:46:47 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/01 12:35:13 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "serveur.h"
+#include "serveur/includes/serveur.h"
 
 /* in our case src is client and dest is server */
 /* from src : GET __FILE__ */
 /* from dest : __FILE__ content line by line */
+/* to server: GET */
+#define buff_size 0
 
-to server: GET
-int		fd_cpy(int src, int dest)
+int		ft_fdcpy(int src, int dest)
 {
-	char	buf[BUF_SIZE];
+	int		ret;
+	char	buf[buff_size];
 
-	while ((ret = read(fd, buf, BUF_SIZE)) > 0)
-		write(fd, buf, ret);
+	while ((ret = read(src, buf, buff_size)) > 0)
+	{
+		write(dest, buf, ret);
+	}
+	printf("ret: :%d\n", ret);
 	return (ret);
 }
 
 int		put(int fd, char *file_name)
 {
-	if ((new_file_fd = open(file_name, O_WRONLY)) < 0)
+	int new_file_fd;
+
+	if ((new_file_fd = open(file_name, O_RDWR | O_CREAT, S_IRWXU)) < 0)
 		return (EXIT_FAILURE);
 	ft_fdcpy(fd, new_file_fd);
 	if (close(new_file_fd) < -1)

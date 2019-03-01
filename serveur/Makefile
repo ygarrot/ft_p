@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/02/28 15:25:10 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/01 14:16:54 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,16 @@ NAME = serveur
 
 FLAGS = -Wall -Werror -Wextra
 FLAGS += -fsanitize=address,undefined -g3
-SRC_FOLDER = src/
+SRC_DIR = src
 
 INCLUDE =  includes/\
 		   -I ../includes/
 
-OBJ_DIR = mkdir obj
+OBJ_DIR = obj
 
 SRC_FP =\
+		../../get.c\
+		../../put.c\
 		redirect_command.c\
 		ft_cd.c\
 		ft_env.c\
@@ -33,25 +35,29 @@ SRC_FP =\
 		main.c
 
 
-OBJ = $(addprefix $(SRC_FOLDER), $(SRC_FP:.c=.o))
+SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
+
+OBJS = $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(basename $(SRC))))
+
+OBJ_FILES = $(sort $(dir $(OBJS)))
 
 LIBFT = ../libft/libft.a
 
 all: $(NAME)
 
-src/%.o: src/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	mkdir obj || true
 	@gcc $(FLAGS) -o $@ -c $<  -I $(INCLUDE)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJS)
 	@make -C ../libft
-	@gcc $(FLAGS) -o $(NAME) $(OBJ) -I $(INCLUDE) -L ../libft -l ft
+	@gcc $(FLAGS) -o $(NAME) $(OBJS) -I $(INCLUDE) -L ../libft -l ft
 
 clean:
-	@rm -f $(OBJ)
+	@rm -f $(OBJ_DIR)
 	@make -C ../libft clean
 
-fclean:
-	@rm -f $(OBJ)
+fclean: clean
 	@rm -f $(NAME)
 	@make -C ../libft fclean
 

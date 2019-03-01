@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:27:48 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/02/28 18:14:17 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/01 12:49:28 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ int read_from_client (int filedes)
 		ft_printf ("Server: got message: `%s'\n", buffer);
 		/* char *arg[] = {"..", NULL}; */
 		/* ft_cd(arg, &g_env); */
-		char *arg2[] = {"env", "touch new_file; echo", "test > new_file", NULL};
-		dprintf(filedes, "%s\n", redirect_command("/usr/bin/env", arg2));
+		/* char *arg2[] = {"env", "touch new_file; echo", "test > new_file", NULL}; */
+		/* dprintf(filedes, "%s\n", redirect_command("/usr/bin/env", arg2)); */
+		put(filedes, "tmp");
 		return 0;
 	}
 	return 0;
@@ -61,12 +62,15 @@ int handle_new_socket(fd_set *active_fd_set, int sock)
 	size = sizeof(clientname);
 	if ((new = accept(sock, (t_sockaddr*)&clientname, &size)) < 0)
 	{
+		ft_printf("accept failed\n");
+		exit(EXIT_FAILURE);
 		/* TODO: handle error */
 	}
 	ft_printf ("Server: connect from host %s, port %hd.\n",
 			inet_ntoa (clientname.sin_addr),
 			ntohs (clientname.sin_port));
 	FD_SET (new, active_fd_set);
+	write(sock, "test", 4);
 	return 0;
 }
 
@@ -89,13 +93,13 @@ int		eval_loop(fd_set *active_fd_set, fd_set *read_fd_set, int sock)
 	return 0;
 }
 
-int		init_serveur()
+int		init_serveur(int port)
 {
 	fd_set active_fd_set, read_fd_set;
 	int sock;
 
 	/* Create the socket and set it up to accept connections. */
-	sock = make_socket (PORT);
+	sock = make_socket (port);
 	if (listen (sock, 1) < 0)
 	{
 		ft_printf ("listen");
