@@ -6,28 +6,27 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:27:48 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 14:56:52 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/02 16:03:59 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "serveur.h"
 
-#define COMMAND_SIZE 12
-
 int read_from_client (int filedes)
 {
-	char buffer[COMMAND_SIZE];
-	int nbytes;
+	char *buffer;
+	const t_func_dic *fdic_server = (t_func_dic[CMD_NBR]){
+	{"cd", ft_cd},
+	{"ls", ft_ls},
+	{"put", ft_get},
+	{"get", ft_put},
+	{"pwd", ft_pwd},
+	/* {"quit", ft_quit} */
+};
 
-	if ((nbytes = read (filedes, buffer, MAXMSG)) < 0)
-	{
-		ft_printf ("read");
-		exit (EXIT_FAILURE);
-	}
-	else if (nbytes == 0)
-		return -1;
-	buffer[nbytes] = '\0';
-	handle_command(filedes, buffer);
+	if (get_next_line(filedes, &buffer) <= 0)
+		return 1;
+	handle_command(filedes, buffer, (t_func_dic*)fdic_server);
 	ft_printf ("Server: got message: `%s'\n", buffer);
 	return 0;
 }
@@ -59,6 +58,7 @@ int handle_new_socket(fd_set *active_fd_set, int sock)
 			inet_ntoa (clientname.sin_addr),
 			ntohs (clientname.sin_port));
 	FD_SET (new, active_fd_set);
+	ft_putstr_fd("OK\n", new);
 	return 0;
 }
 

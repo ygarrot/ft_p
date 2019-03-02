@@ -60,7 +60,7 @@ int		make_socket (uint16_t port);
 int		init_serveur(int port);
 char	*ft_getenv(char **tb, char *str);
 void	ft_setenv(char **arg, char ***env);
-int	handle_command(int fd, char *str);
+int	handle_command(int fd, char *str, t_func_dic *dic);
 
 int		cd(char *argv[], char ***env);
 

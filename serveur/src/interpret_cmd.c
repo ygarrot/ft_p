@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   misc.c                                             :+:      :+:    :+:   */
+/*   interpret_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/02 13:50:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 15:06:03 by ygarrot          ###   ########.fr       */
+/*   Created: 2019/03/02 15:50:23 by ygarrot           #+#    #+#             */
+/*   Updated: 2019/03/02 15:55:53 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_p.h"
+#include "client.h"
 
-/* this file contain basic user shell command */
-/* they are use in func tab */
-
-int		ft_ls(int fd, char *str)
+int	read_loop(char *addr, int port)
 {
-	(void)str;
-	return (redirect_command("/bin/ls",NULL, fd));
-}
+	int sock;
+	char *line;
 
-int		ft_pwd(int fd, char *str)
-{
-	(void)str;
-	return (redirect_command("/bin/pwd",NULL, fd));
-}
-
-int		ft_cd(int fd, char *str)
-{
-	(void)fd;
-	const char *arg[2] = {str, NULL};
-	cd((char**)&arg, &g_env);
-	return (1);
+	while(get_next_line(1, &line) >0)
+	{
+		ft_printf(line);
+		sock = create_client(addr, port);
+	}
+	close(sock);
+	return 0;
 }
