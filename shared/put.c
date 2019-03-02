@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:26:43 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 15:33:51 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/02 17:30:09 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,29 @@
 /* to server: GET */
 #define buff_size 42 
 
+int		ft_socketcpy(int src, int dest)
+{
+	size_t		ret;
+	char	buf[buff_size];
+
+	while ((ret = recv(src, buf, buff_size,0)) > 0)
+	{
+		if (!strncmp(buf, "200\n", 4))
+			return (ret);
+		write(dest, buf, ret);
+	}
+	return (ret);
+}
+
 int		ft_fdcpy(int src, int dest)
 {
 	int		ret;
 	char	buf[buff_size];
 
 	while ((ret = read(src, buf, buff_size)) > 0)
+	{
 		write(dest, buf, ret);
+	}
 	return (ret);
 }
 
@@ -32,7 +48,6 @@ int		ft_put(int fd, char *file_name)
 {
 	int new_file_fd;
 
-	ft_printf("put inc\n");
 	if ((new_file_fd = open(file_name, O_RDWR | O_CREAT, S_IRWXU)) < 0)
 		return (EXIT_FAILURE);
 	ft_fdcpy(new_file_fd, fd);

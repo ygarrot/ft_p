@@ -6,11 +6,11 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 13:14:09 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 14:52:49 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/02 17:18:39 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "serveur.h"
+#include "ft_p.h"
 
 char	*get_command_output(char *command, char*argv[])
 {
