@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:27:48 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 17:10:53 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/02 19:38:10 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int read_from_client (int filedes)
 	/* {"quit", ft_quit} */
 };
 
-	if (get_next_line(filedes, &buffer) <= 0)
-		return 1;
-	handle_command(filedes, buffer, (t_func_dic*)fdic_server);
+	buffer = ft_receive_str(filedes);
+	/* if (get_next_line(filedes, &buffer) <= 0) */
+		/* return 1; */
 	ft_printf ("Server: got message: `%s'\n", buffer);
-	write(filedes, "200\n", 4);
+	handle_command(filedes, buffer, (t_func_dic*)fdic_server);
 	return 0;
 }
 
@@ -59,7 +59,7 @@ int handle_new_socket(fd_set *active_fd_set, int sock)
 			inet_ntoa (clientname.sin_addr),
 			ntohs (clientname.sin_port));
 	FD_SET (new, active_fd_set);
-	ft_putstr_fd("OK\n", new);
+	/* ft_putstr_fd("OK\n", new); */
 	return 0;
 }
 

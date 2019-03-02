@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 15:50:23 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 17:32:14 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/02 19:47:59 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,15 @@ int	interpret_command(int filedes, char *buffer)
 	{"lpwd", ft_pwd},
 	};
 	const t_func_dic *fdic_server = (t_func_dic[CMD_NBR]){
-		{"put", ft_put},
 			{"get", ft_get},
+			{"put", ft_put},
 			/* {"quit", ft_quit} */
 	};
 
-	ft_putendl_fd(buffer, filedes);
-	ft_socketcpy(filedes, 1);
+	ft_send(buffer, filedes);
+	/* ft_putendl_fd(buffer, filedes); */
+	if (ft_strncmp("get", buffer, 3) && ft_strncmp("put", buffer, 3))
+		ft_receive(filedes, 1);
 	(void)fdic_server;(void)local_fun;
 	if (handle_command(filedes, buffer, (t_func_dic*)fdic_server) < 0)
 		return (1);
@@ -56,10 +58,14 @@ int	read_loop(char *addr, int port)
 	char *line;
 
 	sock = create_client(addr, port);
+	/* if (get_next_line(sock, &line) <= 0 || ft_strcmp("OK", line)) */
+	/* 	return 1; */
+	/* ft_memdel((void**)&line); */
 	ft_printf(">");
-	while(get_next_line(0, &line) >0)
+	while (get_next_line(0, &line) > 0)
 	{
 		/* ft_putendl(""); */
+		ft_printf("received %s\n", line);
 		if (interpret_command(sock, line))
 			break ;
 		ft_printf(">");

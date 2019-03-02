@@ -25,11 +25,17 @@
 
 #include <unistd.h>
 
+/* mmap */
+#include <sys/mman.h>
+
 #include <sys/time.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netdb.h>
+
+/* mmap */ 
+#include <sys/mman.h>
 
 #define MAXMSG  512
 typedef struct sockaddr t_sockaddr;
@@ -62,9 +68,13 @@ int		init_serveur(int port);
 char	*ft_getenv(char **tb, char *str);
 void	ft_setenv(char **arg, char ***env);
 int	handle_command(int fd, char *str, t_func_dic *dic);
+int	ft_receive(int src, int dest);
+char	*ft_receive_str(int src);
+int		ft_send(char *str, int dest);
 
 int		cd(char *argv[], char ***env);
 
+char	*mmap_file(char *file, int flag);
 int		ft_cd(int fd, char *file_name);
 
 int		ft_cd(int fd, char *file_name);

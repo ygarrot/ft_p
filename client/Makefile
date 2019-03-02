@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/02 17:23:45 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/02 19:36:24 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SHARED_SRC = \
 		misc.c\
 	   ft_cd.c\
 	   ft_env.c\
+		mmap_file.c\
 	   handle_command.c\
 	   ft_setenv.c\
 	   func_tab.c\

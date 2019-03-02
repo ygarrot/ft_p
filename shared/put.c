@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:26:43 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 17:30:09 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/02 19:47:13 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,34 @@
 /* to server: GET */
 #define buff_size 42 
 
-int		ft_socketcpy(int src, int dest)
+int		ft_send(char *str, int dest)
 {
-	size_t		ret;
-	char	buf[buff_size];
+	size_t size;
 
-	while ((ret = recv(src, buf, buff_size,0)) > 0)
-	{
-		if (!strncmp(buf, "200\n", 4))
-			return (ret);
-		write(dest, buf, ret);
-	}
-	return (ret);
+	size = ft_strlen(str);
+	send(dest, &size, sizeof(int), 0);
+	send(dest, str, size, 0);
+	return (1);
+}
+
+char	*ft_receive_str(int src)
+{
+	int len;
+	char *buffer;
+
+	recv(src, &len, sizeof(int), 0);
+	buffer = ft_strnew(len);
+	recv(src, buffer, len, 0);
+	return (buffer);
+}
+
+int	ft_receive(int src, int dest)
+{
+	char *buffer;
+
+	ft_putstr_fd(buffer = ft_receive_str(src), dest);
+	ft_memdel((void**)&buffer);
+	return (1);
 }
 
 int		ft_fdcpy(int src, int dest)
@@ -46,12 +62,9 @@ int		ft_fdcpy(int src, int dest)
 
 int		ft_put(int fd, char *file_name)
 {
-	int new_file_fd;
+	char *file;
 
-	if ((new_file_fd = open(file_name, O_RDWR | O_CREAT, S_IRWXU)) < 0)
-		return (EXIT_FAILURE);
-	ft_fdcpy(new_file_fd, fd);
-	if (close(new_file_fd) < -1)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	file = mmap_file(file_name, O_RDONLY);
+	ft_send(file, fd);
+	return (1);
 }

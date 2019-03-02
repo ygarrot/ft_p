@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 13:14:09 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 17:18:39 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/02 19:32:05 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	redirect_command(char *command, char *argv[], int fd)
 
 	(void)argv;
 	buffer = get_command_output(command, tmp);
-	ft_putstr_fd(buffer, fd);
-	free(buffer);
+	ft_send(buffer, fd);
+	ft_memdel((void**)&buffer);
 	return (0);
 }
