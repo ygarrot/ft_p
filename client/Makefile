@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/01 14:17:08 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/02 11:58:01 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 $(NAME): $(OBJS)
 	@make -C ../libft
-	@gcc $(FLAGS) -o $(NAME) $(OBJS) -I $(INCLUDE) -L ../libft -l ft
+	gcc $(FLAGS) -o $(NAME) $(OBJS) -I $(INCLUDE) -L ../libft -l ft
 
 clean:
 	@rm -rf $(OBJ_DIR)

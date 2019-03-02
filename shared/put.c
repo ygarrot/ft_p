@@ -6,11 +6,11 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:26:43 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/01 12:35:13 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/02 13:18:19 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "serveur/includes/serveur.h"
+#include "ft_p.h"
 
 /* in our case src is client and dest is server */
 /* from src : GET __FILE__ */
@@ -24,14 +24,11 @@ int		ft_fdcpy(int src, int dest)
 	char	buf[buff_size];
 
 	while ((ret = read(src, buf, buff_size)) > 0)
-	{
 		write(dest, buf, ret);
-	}
-	printf("ret: :%d\n", ret);
 	return (ret);
 }
 
-int		put(int fd, char *file_name)
+int		ft_put(int fd, char *file_name)
 {
 	int new_file_fd;
 

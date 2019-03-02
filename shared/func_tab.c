@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   serveur.h                                          :+:      :+:    :+:   */
+/*   func_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/27 12:34:50 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 12:03:18 by ygarrot          ###   ########.fr       */
+/*   Created: 2019/03/02 11:21:21 by ygarrot           #+#    #+#             */
+/*   Updated: 2019/03/02 13:21:29 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERVEUR_H
-#define SERVEUR_H
+#include "ft_p.h"
 
-#include "../../includes/ft_p.h"
+int (*get_ft_cmd(char *cmd, t_func_dic *ft))(int fd, char *string)
+{
+	int		i;
 
-/* fdic_server = { */
-/* 	{"cd", ft_cd}, */
-/* 	{"ls", ft_ls}, */
-/* 	{"put", ft_put}, */
-/* 	{"get", ft_get}, */
-/* 	{"pwd", ft_pwd}, */
-	/* {"quit", ft_quit} */
-/* } */
+	i = -1;
+	while (ft[i].name && ft_strcmp(ft[i].name, cmd))
+		i++;
+	return (ft[i].function);
+}
 
-#endif
+

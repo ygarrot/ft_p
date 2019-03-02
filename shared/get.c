@@ -6,17 +6,17 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 17:18:17 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/01 11:36:39 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/02 13:18:16 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "serveur/includes/serveur.h"
+#include "ft_p.h"
 
 /* from src: PUT __FILE__ NEW_LINE */
 /* __FILE__ content */
 
 
-int		get(int fd, char *file_name)
+int		ft_get(int fd, char *file_name)
 {
 	int	new_file_fd;
 
