@@ -6,13 +6,13 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 13:14:09 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/01 11:21:59 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/02 14:52:49 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "serveur.h"
 
-char	*redirect_command(char *command, char*argv[])
+char	*get_command_output(char *command, char*argv[])
 {
 	int filedes[2];
 	int nbytes;
@@ -37,7 +37,19 @@ char	*redirect_command(char *command, char*argv[])
 		close(filedes[1]);
 		nbytes = read(filedes[0], foo, sizeof(foo));
 		foo[nbytes] = '\0';
-		return ft_strdup(foo);
+		return (ft_strdup(foo));
 	}
 	return NULL;
+}
+
+int	redirect_command(char *command, char *argv[], int fd)
+{
+	char *buffer;
+	char *tmp[2] = {command, NULL};
+
+	(void)argv;
+	buffer = get_command_output(command, tmp);
+	ft_putstr_fd(buffer, fd);
+	free(buffer);
+	return (0);
 }

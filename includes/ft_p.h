@@ -35,20 +35,38 @@
 typedef struct sockaddr t_sockaddr;
 typedef struct sockaddr_in t_sockaddr_in;
 
+typedef enum e_command
+{
+	CD,
+	GET,
+	PUT,
+	LS,
+	PWD,
+	QUIT,
+	CMD_NBR
+}			t_command;
+
 typedef struct s_func_dic
 {
 	char *name;
 	int	(*function)(int fd, char *string);
 }				t_func_dic;
 
+char	*get_command_output(char *command, char*argv[]);
+int (*get_cmd(char *cmd, t_func_dic *ft))(int fd, char *string);
+int		redirect_command(char *command, char *argv[], int fd);
 int		ft_fdcpy(int src, int dest);
-char	*redirect_command(char *command, char *argv[]);
 int		make_socket (uint16_t port);
 int		init_serveur(int port);
 char	*ft_getenv(char **tb, char *str);
 void	ft_setenv(char **arg, char ***env);
+int	handle_command(int fd, char *str);
 
-int		ft_cd(char *argv[], char ***env);
+int		cd(char *argv[], char ***env);
+
+int		ft_cd(int fd, char *file_name);
+
+int		ft_cd(int fd, char *file_name);
 int		ft_get(int fd, char *file_name);
 int		ft_put(int fd, char *file_name);
 int		ft_pwd(int fd, char *file_name);

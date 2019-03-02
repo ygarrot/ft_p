@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 11:10:57 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 13:15:14 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/02 14:12:58 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	change_dir(char *arg, char ***env,char is_old)
 	/* ft_setenv(&tab[1], env); */
 }
 
-int	ft_cd(char *argv[], char ***env)
+int	cd(char *argv[], char ***env)
 {
 	char	*temp;
 	char	is_old;

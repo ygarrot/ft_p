@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 12:34:50 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 12:03:18 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/02 13:39:50 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,5 @@
 #define SERVEUR_H
 
 #include "../../includes/ft_p.h"
-
-/* fdic_server = { */
-/* 	{"cd", ft_cd}, */
-/* 	{"ls", ft_ls}, */
-/* 	{"put", ft_put}, */
-/* 	{"get", ft_get}, */
-/* 	{"pwd", ft_pwd}, */
-	/* {"quit", ft_quit} */
-/* } */
 
 #endif

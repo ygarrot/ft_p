@@ -6,44 +6,29 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:27:48 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/01 17:23:52 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/02 14:56:52 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "serveur.h"
 
+#define COMMAND_SIZE 12
+
 int read_from_client (int filedes)
 {
-	char buffer[MAXMSG];
+	char buffer[COMMAND_SIZE];
 	int nbytes;
 
-	nbytes = read (filedes, buffer, MAXMSG);
-	buffer[nbytes] = '\0';
-	if (nbytes < 0)
+	if ((nbytes = read (filedes, buffer, MAXMSG)) < 0)
 	{
-		/* Read error. */
 		ft_printf ("read");
 		exit (EXIT_FAILURE);
 	}
 	else if (nbytes == 0)
-		/* End-of-file. */
 		return -1;
-	else
-	{
-		/* Data read. */
-		ft_printf ("Server: got message: `%s'\n", buffer);
-		/* char *arg[] = {"..", NULL}; */
-		/* ft_cd(arg, &g_env); */
-	/* write(filedes, "200", 3); */
-		/* put(filedes, "tmp"); */
-		if (ft_strstr(buffer, "EPSV"))
-	   		dprintf(filedes, "%d\r\n", 150);
-		if (ft_strstr(buffer, "EPSV"))
-	   		dprintf(filedes, "%d\r\n", 227);
-		else
-	   		dprintf(filedes, "%d\r\n", 229);
-		return 0;
-	}
+	buffer[nbytes] = '\0';
+	handle_command(filedes, buffer);
+	ft_printf ("Server: got message: `%s'\n", buffer);
 	return 0;
 }
 
@@ -60,9 +45,8 @@ int	handle_active_socket(fd_set *active_fd_set, int sock)
 int handle_new_socket(fd_set *active_fd_set, int sock)
 {
 	int				new;
-  	t_sockaddr_in	clientname;
+	t_sockaddr_in	clientname;
 	unsigned int	size;
-
 
 	size = sizeof(clientname);
 	if ((new = accept(sock, (t_sockaddr*)&clientname, &size)) < 0)
@@ -75,22 +59,6 @@ int handle_new_socket(fd_set *active_fd_set, int sock)
 			inet_ntoa (clientname.sin_addr),
 			ntohs (clientname.sin_port));
 	FD_SET (new, active_fd_set);
-	/* int i = 0; */
-	/* while (++i < 600) */
-		/* { */
-			/* printf("%d\n", i); */
-	   /* dprintf(new, "%d\r\n", i); */
-	   		/* usleep(60000); */
-		/* } */
-	/* write(new, "500 OK \r\n\n", 5); */
-	/* write(new, "500 OK \r\n", 5); */
-	/* write(new, "500 OK \r\n", 5); */
-	write(new, "0\r\n", 3);
-	/* write(sock, "500 OK\r\n", 5); */
-	/* send(new, "200 OK\r\n", 5, 0); */
-	/* ft_printf("new %d\n", new); */
-	/* send(sock, "200 OK\r\n", 5, 0); */
-	/* write(sock, "200\r\n", 5); */
 	return 0;
 }
 
@@ -101,14 +69,13 @@ int		eval_loop(fd_set *active_fd_set, fd_set *read_fd_set, int sock)
 	i = -1;
 	while (++i < FD_SETSIZE)
 	{
-		if (FD_ISSET (i, read_fd_set))
-		{
-			ft_printf("received message from: %d\n", i);
-			if (i == sock)
-				handle_new_socket(active_fd_set, sock);
-			else
-				handle_active_socket(active_fd_set, i);
-		}
+		if (!FD_ISSET (i, read_fd_set))
+			continue;
+		/* ft_printf("received message from: %d\n", i); */
+		if (i == sock)
+			handle_new_socket(active_fd_set, sock);
+		else
+			handle_active_socket(active_fd_set, i);
 	}
 	return 0;
 }
