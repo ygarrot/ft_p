@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 13:36:31 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 17:42:57 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 19:06:43 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int	handle_command(int fd, char *str, t_func_dic *fdic)
 {
-	int (*ft)(int, char*);
+	int (*ft)(int, char**);
 	char	**argv;
 	int ret;
 
@@ -25,7 +25,7 @@ int	handle_command(int fd, char *str, t_func_dic *fdic)
 		return (0);
 	if (!(ft = get_cmd(argv[0], (t_func_dic*)fdic)))
 		return (1);
-	ret = ft(fd, argv[1]);
+	ret = ft(fd, argv);
 	ft_free_dblechar_tab(argv);
 	return (ret);
 }

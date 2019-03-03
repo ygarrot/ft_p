@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:26:43 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 15:50:13 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 19:11:01 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*ft_receive_str(int src)
 	char *buffer;
 
 	recv(src, &len, sizeof(int), 0);
+	/* len = 42; */
 	buffer = ft_strnew(len);
 	recv(src, buffer, len, 0);
 	return (buffer);
@@ -60,15 +61,14 @@ int		ft_fdcpy(int src, int dest)
 	return (ret);
 }
 
-int		ft_put(int fd, char *file_name)
+int		ft_put(int fd, char **file_name)
 {
 	int depths;
 	char *file;
 
-	if (!calc_depths(file_name, &depths))
+	if (!calc_depths(file_name[1], &depths))
 		return (ft_send("ERROR cannot access to parents\n", fd));
-	ft_printf(file_name);
-	file = mmap_file(file_name, O_RDONLY);
+	file = mmap_file(file_name[1], O_RDONLY);
 	if (!file)
 		return (ft_send("ERROR no such file\n", fd));
 	ft_send("OK\n", fd);

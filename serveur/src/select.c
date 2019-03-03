@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:27:48 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 11:44:26 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 18:48:00 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ int read_from_client (int filedes)
 	{"put", ft_get},
 	{"get", ft_put},
 	{"pwd", ft_pwd},
+	{"mkdir", ft_mkdir},
+	{"rmdir", ft_rmdir},
+	{"unlink", ft_unlink},
 	/* {"quit", ft_quit} */
 };
 

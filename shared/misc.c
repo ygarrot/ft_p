@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 13:50:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 15:31:41 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 19:20:50 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,25 @@ int *calc_depths(char *str, int *new_depths)
 	return (&depths);
 }
 
-int		ft_ls(int fd, char *str)
+int		ft_ls(int fd, char **str)
 {
 	(void)str;
-	return (redirect_command("/bin/ls",NULL, fd));
+	return (redirect_command("/bin/ls",str, fd));
 }
 
-int		ft_pwd(int fd, char *str)
+int		ft_pwd(int fd, char **str)
 {
 	(void)str;
-	return (redirect_command("/bin/pwd",NULL, fd));
+	return (redirect_command("/bin/pwd",str, fd));
 }
 
-int		ft_cd(int fd, char *str)
+int		ft_cd(int fd, char **str)
 {
-	const char *arg[2] = {str, NULL};
+	const char *arg[2] = {str[1], NULL};
 	int *depths;
 	int new_depths;
 
-	if (!(depths = calc_depths(str, &new_depths)))
+	if (!(depths = calc_depths(str[1], &new_depths)))
 		return (ft_send("ERROR\n", fd));
 	if (cd((char**)&arg, &g_env) >= 0)
 		*depths -= new_depths;

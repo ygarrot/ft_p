@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 15:50:23 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 15:55:15 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 18:57:41 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	interpret_command(int filedes, char *buffer)
 			/* {"quit", ft_quit} */
 	};
 
-	if (-1 == ft_strisin_tab(buffer, CLIENT_TAB, C_COMMAND_NB))
+	if (-1 != ft_strisin_tab(buffer, SERVER_TAB, CMD_NBR))
 	{
 		ft_send(buffer, filedes);
 		ft_receive_str(filedes);
@@ -50,7 +50,6 @@ int	interpret_command(int filedes, char *buffer)
 		return (1);
 	else if (handle_command(1, buffer, (t_func_dic*)local_fun) < 0)
 		return (1);
-	ft_memdel((void**)&buffer);
 	return 0;
 }
 
@@ -60,18 +59,16 @@ int	read_loop(char *addr, int port)
 	char *line;
 
 	sock = create_client(addr, port);
-	/* if (get_next_line(sock, &line) <= 0 || ft_strcmp("OK", line)) */
-	/* 	return 1; */
-	/* ft_memdel((void**)&line); */
 	ft_printf(">");
 	while (get_next_line(0, &line) > 0)
 	{
-		/* ft_putendl(""); */
-		/* ft_printf("received %s\n", line); */
-		if (interpret_command(sock, line))
+		if (!ft_strncmp(line, "quit", 4)
+			   	|| interpret_command(sock, line))
 			break ;
+		ft_memdel((void**)&line);
 		ft_printf(">");
 	}
+	ft_memdel((void**)&line);
 	ft_putendl("Good Bye");
 	close(sock);
 	return 0;

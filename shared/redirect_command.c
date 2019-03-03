@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 13:14:09 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 15:49:49 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 19:19:03 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ char	*get_command_output(char *command, char*argv[])
 int	redirect_command(char *command, char *argv[], int fd)
 {
 	char *buffer;
-	char *tmp[2] = {command, NULL};
+	/* char *tmp[2] = {command, NULL}; */
 
 	(void)argv;
-	buffer = get_command_output(command, tmp);
+	buffer = get_command_output(command, argv);
 	if (!buffer)
 		return (ft_send(OOM_DEVICE, fd));
 	if (fd != 1)

@@ -54,19 +54,22 @@ typedef enum e_command
 	LS,
 	PWD,
 	QUIT,
+	MKDIR,
+	RMDIR,
+	UNLINK,
 	CMD_NBR
 }			t_command;
 
 typedef struct s_func_dic
 {
 	char *name;
-	int	(*function)(int fd, char *string);
+	int	(*function)(int fd, char **string);
 }				t_func_dic;
 int		ft_socketcpy(int src, int dest);
 
 int *calc_depths(char *str, int *new_depths);
 char	*get_command_output(char *command, char*argv[]);
-int (*get_cmd(char *cmd, t_func_dic *ft))(int fd, char *string);
+int (*get_cmd(char *cmd, t_func_dic *ft))(int fd, char **arg);
 int		redirect_command(char *command, char *argv[], int fd);
 int		ft_fdcpy(int src, int dest);
 int		make_socket (uint16_t port);
@@ -81,14 +84,17 @@ int		ft_send(char *str, int dest);
 int		cd(char *argv[], char ***env);
 
 char	*mmap_file(char *file, int flag);
-int		ft_cd(int fd, char *file_name);
+int		ft_cd(int fd, char **argv);
 
-int		ft_cd(int fd, char *file_name);
-int		ft_get(int fd, char *file_name);
-int		ft_put(int fd, char *file_name);
-int		ft_pwd(int fd, char *file_name);
-int		ft_quit(int fd, char *file_name);
-int		ft_ls(int fd, char *file_name);
+int		ft_cd(int fd, char **argv);
+int		ft_get(int fd, char **argv);
+int		ft_put(int fd, char **argv);
+int		ft_pwd(int fd, char **argv);
+int		ft_quit(int fd, char **argv);
+int		ft_ls(int fd, char **argv);
+int		ft_mkdir(int fd, char **argv);
+int		ft_rmdir(int fd, char **argv);
+int		ft_unlink(int fd, char **argv);
 
 extern char **g_env;
 #endif

@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.h                                           :+:      :+:    :+:   */
+/*   bonus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/02 15:51:19 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 18:54:18 by ygarrot          ###   ########.fr       */
+/*   Created: 2019/03/03 18:42:13 by ygarrot           #+#    #+#             */
+/*   Updated: 2019/03/03 19:17:40 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLIENT_H
-#define CLIENT_H
+#include "ft_p.h"
 
-#include "../../includes/ft_p.h"
-
-typedef enum e_client_command
+int		ft_mkdir(int fd, char **str)
 {
-	LCD,
-	LLS,
-	LPWD,
-	C_COMMAND_NB
-}			t_client_command;
+	(void)str;
+	return (redirect_command("/bin/mkdir",str, fd));
+}
 
-#define CLIENT_TAB (char*[3]){ "lcd", "lls", "lpwd"}
-#define SERVER_TAB (char*[10]){ "get", "ls", "pwd" , "put", "quit", "cd", "rmdir", "mkdir", "unlink"}
-int	read_loop(char *addr, int port);
-int create_client(char *addr, int port);
+int		ft_rmdir(int fd, char **str)
+{
+	(void)str;
+	return (redirect_command("/bin/rmdir", str, fd));
+}
 
-#endif
+int		ft_unlink(int fd, char **str)
+{
+	(void)str;
+	return (redirect_command("/bin/unlink",str, fd));
+}
