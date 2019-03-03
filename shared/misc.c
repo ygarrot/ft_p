@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 13:50:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 13:50:23 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 15:31:41 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,27 @@
 
 int *calc_depths(char *str, int *new_depths)
 {
-	static int depths = 0;
+	static int	depths = 0;
 	int	i;
-	int set;
+	char	*tmp;
+	int	set;
 
 	i = -1;
 	set = 0;
 	*new_depths = 0;
+	if (!str)
+		return (&depths);
 	while (str[++i])
 		if (!ft_strncmp(&str[i], "..", 2) && ++i && (set = 1))
 			++*new_depths;
 		else if (i > 0 && ft_strncmp(&str[i], "/.", 2)
-				&& str[i] == '/'  && str[i + 1] && (set = 1))
-			--*new_depths;
+				&& str[i] == '/'  && str[i + 1])
+		{
+			tmp = ft_strndup(str, i +1+ ft_strlento(&str[i+1], '/') );
+			if (is_directory_str(tmp) == 1 && (set = 1))
+				--*new_depths;
+			ft_memdel((void**)&tmp);
+		}
 	*new_depths = (set ? *new_depths : -1);
 	if (str[0] == '/' || (depths - *new_depths) < 0)
 		return (NULL);
@@ -39,7 +47,6 @@ int *calc_depths(char *str, int *new_depths)
 int		ft_ls(int fd, char *str)
 {
 	(void)str;
-	ft_printf("%d\n", fd);
 	return (redirect_command("/bin/ls",NULL, fd));
 }
 

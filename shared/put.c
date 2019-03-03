@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:26:43 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 13:54:08 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 15:30:49 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,12 @@ int		ft_put(int fd, char *file_name)
 	char *file;
 
 	if (!calc_depths(file_name, &depths))
-		return (ft_send("ERROR\n", fd));
+		return (ft_send("ERROR cannot access to parents\n", fd));
+	ft_printf(file_name);
 	file = mmap_file(file_name, O_RDONLY);
+	if (!file)
+		return ft_send("ERROR no such file\n", fd);
+	ft_send("OK\n", fd);
 	ft_send(file, fd);
 	return (1);
 }

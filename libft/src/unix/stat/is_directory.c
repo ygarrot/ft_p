@@ -6,12 +6,14 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 12:22:07 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/01/28 19:41:08 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 14:32:28 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 int	is_directory(int fd)
 {
@@ -20,4 +22,17 @@ int	is_directory(int fd)
 	if (fstat(fd, &statbuf) != 0)
 		return (0);
 	return (S_ISDIR(statbuf.st_mode));
+}
+
+int is_directory_str(char *str)
+{
+	int	fd;
+	int	ret;
+
+	fd = open(str, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	ret = is_directory(fd);
+	close(fd);
+	return (ret);
 }
