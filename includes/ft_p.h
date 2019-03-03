@@ -59,6 +59,7 @@ typedef struct s_func_dic
 }				t_func_dic;
 int		ft_socketcpy(int src, int dest);
 
+int *calc_depths(char *str, int *new_depths);
 char	*get_command_output(char *command, char*argv[]);
 int (*get_cmd(char *cmd, t_func_dic *ft))(int fd, char *string);
 int		redirect_command(char *command, char *argv[], int fd);

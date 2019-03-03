@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 15:50:23 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 19:47:59 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 14:07:26 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ int	interpret_command(int filedes, char *buffer)
 			/* {"quit", ft_quit} */
 	};
 
-	ft_send(buffer, filedes);
-	/* ft_putendl_fd(buffer, filedes); */
-	if (ft_strncmp("get", buffer, 3) && ft_strncmp("put", buffer, 3))
-		ft_receive(filedes, 1);
-	(void)fdic_server;(void)local_fun;
+	if (-1 == ft_strisin_tab(buffer, CLIENT_TAB, C_COMMAND_NB))
+	{
+		ft_send(buffer, filedes);
+		ft_receive_str(filedes);
+		if (ft_strncmp(buffer, "get", 3))
+			ft_receive(filedes, 1);
+	}
 	if (handle_command(filedes, buffer, (t_func_dic*)fdic_server) < 0)
 		return (1);
 	else if (handle_command(1, buffer, (t_func_dic*)local_fun) < 0)
@@ -65,7 +67,7 @@ int	read_loop(char *addr, int port)
 	while (get_next_line(0, &line) > 0)
 	{
 		/* ft_putendl(""); */
-		ft_printf("received %s\n", line);
+		/* ft_printf("received %s\n", line); */
 		if (interpret_command(sock, line))
 			break ;
 		ft_printf(">");

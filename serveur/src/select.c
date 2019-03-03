@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:27:48 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 19:38:10 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 11:44:26 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ int read_from_client (int filedes)
 };
 
 	buffer = ft_receive_str(filedes);
+	if (!ft_strlen(buffer))
+		return 0;
 	/* if (get_next_line(filedes, &buffer) <= 0) */
 		/* return 1; */
 	ft_printf ("Server: got message: `%s'\n", buffer);
+	ft_send("OK\n", filedes);
 	handle_command(filedes, buffer, (t_func_dic*)fdic_server);
 	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 16:26:43 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 19:47:13 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 13:54:08 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,11 @@ int		ft_fdcpy(int src, int dest)
 
 int		ft_put(int fd, char *file_name)
 {
+	int depths;
 	char *file;
 
+	if (!calc_depths(file_name, &depths))
+		return (ft_send("ERROR\n", fd));
 	file = mmap_file(file_name, O_RDONLY);
 	ft_send(file, fd);
 	return (1);

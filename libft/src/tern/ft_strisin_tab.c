@@ -6,12 +6,13 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/01 12:16:11 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/09 15:35:26 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 11:33:53 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/* TODO: CARE */
 int		ft_strisin_tab(char *tofind, char **tab, int option)
 {
 	int		i;
