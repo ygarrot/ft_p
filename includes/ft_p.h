@@ -38,6 +38,11 @@
 #include <sys/mman.h>
 
 #define MAXMSG  512
+/* 500 "Requested action not taken. File unavailable (e.g., file not found, no access)." */
+#define CLOSE_ERROR "ERROR ON CLOSE"
+#define OPEN_ERROR "NO SUCH FILE OR DIRECTORY\n"
+#define OOM_DEVICE "NO SPACE LEFT ON DEVICE\n"
+
 typedef struct sockaddr t_sockaddr;
 typedef struct sockaddr_in t_sockaddr_in;
 

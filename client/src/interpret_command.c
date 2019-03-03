@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 15:50:23 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 15:32:45 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 15:55:15 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	interpret_command(int filedes, char *buffer)
 	{
 		ft_send(buffer, filedes);
 		ft_receive_str(filedes);
-		if (ft_strncmp(buffer, "get", 3))
+		if (ft_strncmp(buffer, "get", 3) && ft_strncmp(buffer, "put", 3))
 			ft_receive(filedes, 1);
 	}
 	if (handle_command(filedes, buffer, (t_func_dic*)fdic_server) < 0)
