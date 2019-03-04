@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/02 19:36:24 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/04 13:36:19 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,16 +29,17 @@ SRC =\
 	 interpret_command.c
 
 SHARED_SRC = \
-		misc.c\
-	   ft_cd.c\
-	   ft_env.c\
-		mmap_file.c\
-	   handle_command.c\
-	   ft_setenv.c\
-	   func_tab.c\
-	   get.c\
-	   put.c\
-	   redirect_command.c
+			 misc.c\
+			 ft_cd.c\
+			 ft_exit.c\
+			 ft_env.c\
+			 mmap_file.c\
+			 handle_command.c\
+			 ft_setenv.c\
+			 func_tab.c\
+			 get.c\
+			 put.c\
+			 redirect_command.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 

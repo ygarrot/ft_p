@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 14:47:28 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 17:18:05 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/04 13:58:30 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		ft_setenv(char **arg, char ***env)
 	char	*value;
 
 	if (!arg || !env || !*env)
-		write(STDOUT_FILENO, "\n", 1);
+		return ;
 	else
 	{
 		if ((value = (char*)malloc(ft_strlen(arg[1]) + ft_strlen(arg[2]) + 2)))

@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/03 18:52:31 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/04 13:35:56 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC =\
 
 SHARED_SRC = \
 		misc.c\
+		ft_exit.c\
 	 handle_command.c\
 	 mmap_file.c\
 	 bonus.c\

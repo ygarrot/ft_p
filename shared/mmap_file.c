@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 19:09:49 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 15:21:12 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/04 13:42:40 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* char	*malloc_file(char *file, int flag) */
 /* { */
-/* 	if ((fd = open(file, flag)) < 0) */
+/* 	if ((fd = open(file, flag)) == ERROR_CODE) */
 /* 		return (NULL); */
 /* 	while (read(fd, buffer, buff_size) > 0) */
 /* } */
@@ -25,9 +25,9 @@ char	*mmap_file(char *file, int flag)
 	char		*ptr;
 	struct stat	buf;
 
-	if ((fd = open(file, flag)) < 0)
+	if ((fd = open(file, flag)) == ERROR_CODE)
 		return (NULL);
-	if (fstat(fd, &buf) < 0)
+	if (fstat(fd, &buf) == ERROR_CODE)
 		return (NULL);
 	if (is_directory(fd))
 		return (NULL);

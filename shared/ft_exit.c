@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   func_tab.c                                         :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/02 11:21:21 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/04 12:05:16 by ygarrot          ###   ########.fr       */
+/*   Created: 2019/03/04 12:08:00 by ygarrot           #+#    #+#             */
+/*   Updated: 2019/03/04 13:35:29 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-int		(*get_cmd(char *cmd, t_func_dic *ft))(int fd, char **string)
+int		ft_exit(char *str, int ret)
 {
-	int		i;
-
-	i = -1;
-	while (ft[++i].name)
-		if (!ft_strcmp(cmd, ft[i].name))
-			return (ft[i].function);
-	return (NULL);
+	ft_putendl_fd(str, STDERR_FILENO);
+	exit(ret);
 }

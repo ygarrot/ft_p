@@ -5,42 +5,47 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/28 16:26:43 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 19:11:01 by ygarrot          ###   ########.fr       */
+/*   Created: 2019/03/04 13:24:52 by ygarrot           #+#    #+#             */
+/*   Updated: 2019/03/04 13:41:24 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-/* in our case src is client and dest is server */
-/* from src : GET __FILE__ */
-/* from dest : __FILE__ content line by line */
-/* to server: GET */
-#define buff_size 42 
+/*
+** in our case src is client and dest is server
+** from src : GET __FILE__
+** from dest : __FILE__ content line by line
+** to server: GET
+*/
 
 int		ft_send(char *str, int dest)
 {
 	size_t size;
 
 	size = ft_strlen(str);
-	send(dest, &size, sizeof(int), 0);
-	send(dest, str, size, 0);
+	if (send(dest, &size, sizeof(int), 0) == ERROR_CODE)
+		ft_putstr_fd(SEND_ERROR, STDERR_FILENO);
+	if (send(dest, str, size, 0) == ERROR_CODE)
+		ft_putstr_fd(SEND_ERROR, STDERR_FILENO);
 	return (1);
 }
 
 char	*ft_receive_str(int src)
 {
-	int len;
-	char *buffer;
+	int		len;
+	char	*buffer;
 
-	recv(src, &len, sizeof(int), 0);
-	/* len = 42; */
-	buffer = ft_strnew(len);
-	recv(src, buffer, len, 0);
+	if (recv(src, &len, sizeof(int), 0) == ERROR_CODE)
+		ft_putstr_fd(RECV_ERROR, STDERR_FILENO);
+	if (!(buffer = ft_strnew(len)))
+		return (NULL);
+	if (!(recv(src, buffer, len, 0)))
+		ft_putstr_fd(RECV_ERROR, STDERR_FILENO);
 	return (buffer);
 }
 
-int	ft_receive(int src, int dest)
+int		ft_receive(int src, int dest)
 {
 	char *buffer;
 
@@ -56,22 +61,23 @@ int		ft_fdcpy(int src, int dest)
 
 	while ((ret = read(src, buf, buff_size)) > 0)
 	{
-		write(dest, buf, ret);
+		if (write(dest, buf, ret) == ERROR_CODE)
+			ft_putstr_fd(WRITE_ERROR, STDERR_FILENO);
 	}
 	return (ret);
 }
 
 int		ft_put(int fd, char **file_name)
 {
-	int depths;
-	char *file;
+	int		depths;
+	char	*file;
 
 	if (!calc_depths(file_name[1], &depths))
-		return (ft_send("ERROR cannot access to parents\n", fd));
+		return (ft_send(NACCESS_PARENT, fd));
 	file = mmap_file(file_name[1], O_RDONLY);
 	if (!file)
-		return (ft_send("ERROR no such file\n", fd));
-	ft_send("OK\n", fd);
+		return (ft_send(FILE_DOESNT_EXIST, fd));
+	ft_send(REQUEST_OK, fd);
 	ft_send(file, fd);
 	return (1);
 }

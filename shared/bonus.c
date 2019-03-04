@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 18:42:13 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 19:17:40 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/04 13:47:06 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,15 @@
 
 int		ft_mkdir(int fd, char **str)
 {
-	(void)str;
-	return (redirect_command("/bin/mkdir",str, fd));
+	return (redirect_command(MKDIR_PATH, str, fd));
 }
 
 int		ft_rmdir(int fd, char **str)
 {
-	(void)str;
-	return (redirect_command("/bin/rmdir", str, fd));
+	return (redirect_command(RMDIR_PATH, str, fd));
 }
 
 int		ft_unlink(int fd, char **str)
 {
-	(void)str;
-	return (redirect_command("/bin/unlink",str, fd));
+	return (redirect_command(UNLINK_PATH,str, fd));
 }

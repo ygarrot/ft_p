@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:27:48 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 18:48:00 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/03 19:49:42 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int		eval_loop(fd_set *active_fd_set, fd_set *read_fd_set, int sock)
 	return 0;
 }
 
+#define QUEUE_LEN 10
 int		init_serveur(int port)
 {
 	fd_set active_fd_set, read_fd_set;
@@ -94,7 +95,7 @@ int		init_serveur(int port)
 
 	/* Create the socket and set it up to accept connections. */
 	sock = make_socket (port);
-	if (listen (sock, 1) < 0)
+	if (listen (sock, QUEUE_LEN) < 0)
 	{
 		ft_printf ("listen");
 		exit (EXIT_FAILURE);
