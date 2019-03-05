@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   create_server.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/27 15:42:04 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/05 12:23:33 by ygarrot          ###   ########.fr       */
+/*   Created: 2019/03/05 12:21:09 by ygarrot           #+#    #+#             */
+/*   Updated: 2019/03/05 12:23:49 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "client.h"
-char **g_env;
+#include "serveur.h"
 
-int create_client(char *address, int port)
+int	create_server(char *address, int port)
 {
 	int			sock;
+	int			reuseaddr;
 	t_sockaddr *s_sock;
 
 	sock = set_socket(ip_version(address) == 4);
+	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &reuseaddr, sizeof(reuseaddr));
 	s_sock = get_sock_addr(address, port);
-	if (connect(sock, s_sock, sizeof(t_sockaddr)) == ERROR_CODE)
+	if (bind(sock, s_sock, sizeof(t_sockaddr)) == ERROR_CODE)
 		ft_exit(BIND_ERROR, EXIT_FAILURE);
 	ft_memdel((void**)&s_sock);
+	listen(sock, 42);
 	return (sock);
 }
 
-int main(int ac, char *av[], char **env)
-{
-	(void)ac;(void)av;(void)env;
-
-	if (ac < 3)
-	{
-		ft_printf("Please give me a port and an address\n");
-		return 1;
-	}
-	read_loop(av[1], ft_atoi(av[2]));
-	return 1;
-}

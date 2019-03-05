@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/04 13:35:56 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/05 12:24:12 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,12 +26,14 @@ OBJ_DIR = obj
 
 SRC =\
 	 main.c\
-	 make_socket.c\
+	 create_server.c\
 	 select.c
 
 SHARED_SRC = \
 		misc.c\
 		ft_exit.c\
+		ip_version.c\
+		socket_creation.c\
 	 handle_command.c\
 	 mmap_file.c\
 	 bonus.c\

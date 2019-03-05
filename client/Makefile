@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/04 13:36:19 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/05 12:26:35 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ SRC =\
 	 interpret_command.c
 
 SHARED_SRC = \
+			 socket_creation.c\
+			 ip_version.c\
 			 misc.c\
 			 ft_cd.c\
 			 ft_exit.c\

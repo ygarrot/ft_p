@@ -61,10 +61,15 @@
 #define MKDIR_PATH "/bin/mkdir"
 #define RMDIR_PATH "/bin/rmdir"
 #define UNLINK_PATH "/bin/unlink"
+#define BIND_ERROR "BIND ERROR"
+#define SOCKET_ERROR "SOCKET ERROR"
 #define ERROR_CODE -1
 
 typedef struct sockaddr t_sockaddr;
+typedef struct sockaddr6 t_sockaddr6;
+typedef struct sockaddr_in6 t_sockaddr_in6;
 typedef struct sockaddr_in t_sockaddr_in;
+typedef	struct	protoent	t_protoent;
 
 typedef enum e_command
 {
@@ -85,7 +90,10 @@ typedef struct s_func_dic
 	char *name;
 	int	(*function)(int fd, char **string);
 }				t_func_dic;
+
 int		ft_socketcpy(int src, int dest);
+
+int ip_version(const char *src);
 
 int	ft_exit(char *str, int code);
 int *calc_depths(char *str, int *new_depths);
@@ -93,7 +101,7 @@ char	*get_command_output(char *command, char*argv[]);
 int (*get_cmd(char *cmd, t_func_dic *ft))(int fd, char **arg);
 int		redirect_command(char *command, char *argv[], int fd);
 int		ft_fdcpy(int src, int dest);
-int		make_socket (uint16_t port);
+int		create_server(char *addr, int port);
 int		init_serveur(int port);
 char	*ft_getenv(char **tb, char *str);
 void	ft_setenv(char **arg, char ***env);
@@ -106,6 +114,11 @@ int		cd(char *argv[], char ***env);
 
 char	*mmap_file(char *file, int flag);
 int		ft_cd(int fd, char **argv);
+
+t_sockaddr	*get_sock_addr(char *addr,  int port);
+t_sockaddr_in6	*get_ipv6_addr(char *address, int port);
+t_sockaddr_in	*get_ipv4_addr(char *address, int port);
+int	set_socket(int is_ipv4);
 
 int		ft_cd(int fd, char **argv);
 int		ft_get(int fd, char **argv);

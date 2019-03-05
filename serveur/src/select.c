@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:27:48 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 19:49:42 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/05 12:25:31 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		init_serveur(int port)
 	int sock;
 
 	/* Create the socket and set it up to accept connections. */
-	sock = make_socket (port);
+	sock = create_server("127.0.0.1", port);
 	if (listen (sock, QUEUE_LEN) < 0)
 	{
 		ft_printf ("listen");
