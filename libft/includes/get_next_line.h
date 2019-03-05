@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/26 13:47:04 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/05/11 13:14:03 by tcharrie         ###   ########.fr       */
+/*   Updated: 2019/03/05 17:48:24 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ typedef struct		s_getline
 }					t_gnl;
 
 int					get_next_line(const int fd, char **line);
+int					get_next_line_b(const int fd, char **line, size_t size);
 int					get_filetochar(const int fd, char **line, char c);
 #endif

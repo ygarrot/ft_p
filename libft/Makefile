@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 12:06:15 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/02 17:23:34 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/05 17:52:51 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -134,6 +134,7 @@ SRC += \
 	   str/ft_strlento_rev.c
 SRC += \
 	   get_next_line/get_next_line.c \
+	   get_next_line/get_next_line_b.c \
 	   get_next_line/get_filetochar.c
 
 SRC += \

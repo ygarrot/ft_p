@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 15:50:23 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/05 12:26:52 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/05 16:46:35 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	print_serveur_output(int fd)
 int	interpret_command(int filedes, char *buffer)
 {
 	/* char *buffer; */
+	/* char	*out; */
 	const t_func_dic *local_fun = (t_func_dic[CMD_NBR]){
 	{"lcd", ft_cd},
 	{"lls", ft_ls},
@@ -41,8 +42,10 @@ int	interpret_command(int filedes, char *buffer)
 
 	if (-1 != ft_strisin_tab(buffer, SERVER_TAB, CMD_NBR))
 	{
-		ft_send(buffer, filedes);
-		ft_receive_str(filedes);
+		ft_putendl_fd(buffer, filedes);
+		/* out = ft_receive_str(filedes); */
+		/* ft_printf(out); */
+		/* ft_receive_str(filedes); */
 		if (ft_strncmp(buffer, "get", 3) && ft_strncmp(buffer, "put", 3))
 			ft_receive(filedes, 1);
 	}
@@ -59,14 +62,14 @@ int	read_loop(char *addr, int port)
 	char *line;
 
 	sock = create_client(addr, port);
-	ft_printf(">");
+	ft_printf("{boldblue}%s{reset} ☯ ", ft_getenv(g_env, "PWD"));
 	while (get_next_line(0, &line) > 0)
 	{
 		if (!ft_strncmp(line, "quit", 4)
 			   	|| interpret_command(sock, line))
 			break ;
 		ft_memdel((void**)&line);
-		ft_printf(">");
+		ft_printf("{boldblue}%s{reset} ☯ ", ft_getenv(g_env, "PWD"));
 	}
 	ft_memdel((void**)&line);
 	ft_putendl("Good Bye");

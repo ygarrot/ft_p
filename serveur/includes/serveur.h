@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 12:34:50 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 16:38:59 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/05 12:35:09 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,4 +14,6 @@
 #define SERVEUR_H
 
 #include "../../includes/ft_p.h"
+int		init_serveur(char *addr, int port);
+
 #endif

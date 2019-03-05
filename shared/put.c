@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 13:24:52 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/04 13:41:24 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/05 19:06:43 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,38 @@
 
 int		ft_send(char *str, int dest)
 {
-	size_t size;
+	int		i;
+	int		n;
 
-	size = ft_strlen(str);
-	if (send(dest, &size, sizeof(int), 0) == ERROR_CODE)
-		ft_putstr_fd(SEND_ERROR, STDERR_FILENO);
-	if (send(dest, str, size, 0) == ERROR_CODE)
-		ft_putstr_fd(SEND_ERROR, STDERR_FILENO);
+	i = -1;
+	n = 0;
+	while (str[++i])
+		if (str[i] == '\n')
+			n++;
+	ft_putendl_fd(ft_itoa(n), dest);
+	ft_putendl_fd(str, dest);
 	return (1);
 }
 
 char	*ft_receive_str(int src)
 {
-	int		len;
-	char	*buffer;
+	char	*tmp;
+	char	*buffer ;
+	int nb;
 
-	if (recv(src, &len, sizeof(int), 0) == ERROR_CODE)
-		ft_putstr_fd(RECV_ERROR, STDERR_FILENO);
-	if (!(buffer = ft_strnew(len)))
-		return (NULL);
-	if (!(recv(src, buffer, len, 0)))
-		ft_putstr_fd(RECV_ERROR, STDERR_FILENO);
-	return (buffer);
+	tmp = ft_memalloc(1);
+	get_next_line_b(src, &buffer, 1);
+	nb = ft_atoi(buffer) + 1;
+	ft_memdel((void**)&buffer);
+	while (nb-- > 0)
+	{
+		get_next_line_b(src, &buffer, 1);
+		tmp = ft_realloc(tmp, ft_strlen(tmp) + ft_strlen(buffer) + 2);
+		ft_strcat(tmp, buffer);
+		if (nb - 1)
+			ft_strcat(tmp, "\n");
+	}
+	return (tmp);
 }
 
 int		ft_receive(int src, int dest)
@@ -54,10 +64,22 @@ int		ft_receive(int src, int dest)
 	return (1);
 }
 
-int		ft_fdcpy(int src, int dest)
+int		ft_fdcpy2(int src, int dest, size_t buff_size)
 {
 	int		ret;
-	char	buf[buff_size];
+	char	buf[buff_size + 1];
+
+	if (0 > (ret = read(src, buf, buff_size)))
+		return (0);
+	if (write(dest, buf, ret) == ERROR_CODE)
+		ft_putstr_fd(WRITE_ERROR, STDERR_FILENO);
+	return (ret);
+}
+
+int		ft_fdcpy(int src, int dest, size_t buff_size)
+{
+	int		ret;
+	char	buf[buff_size + 1];
 
 	while ((ret = read(src, buf, buff_size)) > 0)
 	{
@@ -77,7 +99,7 @@ int		ft_put(int fd, char **file_name)
 	file = mmap_file(file_name[1], O_RDONLY);
 	if (!file)
 		return (ft_send(FILE_DOESNT_EXIST, fd));
-	ft_send(REQUEST_OK, fd);
+	ft_putendl_fd(REQUEST_OK, fd);
 	ft_send(file, fd);
 	return (1);
 }

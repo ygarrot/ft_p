@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 12:08:00 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/04 13:35:29 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/05 12:43:56 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		ft_exit(char *str, int ret)
 {
+	/*TODO : toremove*/
+	perror(str);
 	ft_putendl_fd(str, STDERR_FILENO);
 	exit(ret);
 }

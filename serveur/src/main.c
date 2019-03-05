@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 15:42:04 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/05 11:33:00 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/05 13:34:22 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int main(int ac, char *av[], char **env)
 		return 1;
 	}
 	g_env = env;
-	init_serveur(ft_atoi(av[1]));
+	init_serveur(ac < 3 ? "127.0.0.1" : av[2], ft_atoi(av[1]));
 	return 0;
 }

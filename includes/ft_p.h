@@ -15,6 +15,7 @@
 #define FT_P_H
 
 #include "../../libft/includes/libft.h"
+#include "./debug.h"
 #include <sys/select.h>
 #include <sys/types.h>
 
@@ -45,12 +46,15 @@
 #define READ_ERROR "READ ERROR"
 #define FILE_DOESNT_EXIST "ERROR no such file\n"
 #define NACCESS_PARENT "ERROR cannot access to parents\n"
-#define REQUEST_OK "OK\n"
+#define REQUEST_OK "OK"
 #define REQUEST_ERROR "ERROR\n"
 #define CLOSE_ERROR "ERROR ON CLOSE"
 #define OPEN_ERROR "NO SUCH FILE OR DIRECTORY\n"
 #define OOM_DEVICE "NO SPACE LEFT ON DEVICE\n"
-#define buff_size 42
+#define QUEUE_LEN 10
+#define ACCEPT_ERROR "ACCEPT ERROR"
+#define LISTEN_ERROR "LISTEN ERROR"
+#define SELECT_ERROR "SELECT ERROR"
 #define PIPE_ERR "ERROR ON PIPE"
 #define FORK_ERR "ERROR ON FORK"
 #define CLOSE_ERR "ERROR ON CLOSE"
@@ -100,9 +104,9 @@ int *calc_depths(char *str, int *new_depths);
 char	*get_command_output(char *command, char*argv[]);
 int (*get_cmd(char *cmd, t_func_dic *ft))(int fd, char **arg);
 int		redirect_command(char *command, char *argv[], int fd);
-int		ft_fdcpy(int src, int dest);
+int		ft_fdcpy(int src, int dest, size_t buffsize);
+int		ft_fdcpy2(int src, int dest, size_t buffsize);
 int		create_server(char *addr, int port);
-int		init_serveur(int port);
 char	*ft_getenv(char **tb, char *str);
 void	ft_setenv(char **arg, char ***env);
 int	handle_command(int fd, char *str, t_func_dic *dic);
@@ -115,9 +119,9 @@ int		cd(char *argv[], char ***env);
 char	*mmap_file(char *file, int flag);
 int		ft_cd(int fd, char **argv);
 
-t_sockaddr	*get_sock_addr(char *addr,  int port);
-t_sockaddr_in6	*get_ipv6_addr(char *address, int port);
-t_sockaddr_in	*get_ipv4_addr(char *address, int port);
+t_sockaddr	*get_sock_addr(char *addr,  int port, int is_serv);
+t_sockaddr	*get_ipv6_addr(char *address, int port);
+t_sockaddr	*get_ipv4_addr(char *address, int port);
 int	set_socket(int is_ipv4);
 
 int		ft_cd(int fd, char **argv);
