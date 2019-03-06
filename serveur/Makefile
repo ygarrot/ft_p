@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/05 12:24:12 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/06 18:34:59 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ LIBFT = ../libft/libft.a
 
 all: $(NAME)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c includes/$(NAME).h
 	@gcc $(FLAGS) -o $@ -c $<  -I $(INCLUDE)
 
 ../$(OBJ_DIR)/%.o: $(SHARED_DIR)/%.c

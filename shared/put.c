@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 13:24:52 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/06 17:14:51 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/06 17:52:40 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int		ft_send(char *str, int dest)
 char	*ft_receive_str(int src)
 {
 	char	*tmp;
-	char	*buffer ;
-	int nb;
+	char	*buffer;
+	int		nb;
 
 	tmp = ft_memalloc(1);
 	if (get_next_line_b(src, &buffer, 1) <= 0)
@@ -63,31 +63,6 @@ int		ft_receive(int src, int dest)
 	ft_putstr_fd(buffer = ft_receive_str(src), dest);
 	ft_memdel((void**)&buffer);
 	return (1);
-}
-
-int		ft_fdcpy2(int src, int dest, size_t buff_size)
-{
-	int		ret;
-	char	buf[buff_size + 1];
-
-	if (0 > (ret = read(src, buf, buff_size)))
-		return (0);
-	if (write(dest, buf, ret) == ERROR_CODE)
-		ft_putstr_fd(WRITE_ERROR, STDERR_FILENO);
-	return (ret);
-}
-
-int		ft_fdcpy(int src, int dest, size_t buff_size)
-{
-	int		ret;
-	char	buf[buff_size + 1];
-
-	while ((ret = read(src, buf, buff_size)) > 0)
-	{
-		if (write(dest, buf, ret) == ERROR_CODE)
-			ft_putstr_fd(WRITE_ERROR, STDERR_FILENO);
-	}
-	return (ret);
 }
 
 int		ft_put(int fd, char **file_name)

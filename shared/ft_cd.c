@@ -6,13 +6,13 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 11:10:57 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 15:41:27 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/06 18:10:48 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-int	change_dir(char *arg, char ***env,char is_old)
+int	change_dir(char *arg, char ***env, char is_old)
 {
 	char	path[256];
 	char	**new_oldpwd;

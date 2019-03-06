@@ -6,13 +6,14 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 17:16:15 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/05 11:35:59 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/06 17:53:57 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-int ip_version(const char *src) {
+int	ip_version(const char *src)
+{
 	char	buf[16];
 
 	if (inet_pton(AF_INET, src, buf))

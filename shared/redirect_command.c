@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 13:47:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/06 16:50:14 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/06 17:52:20 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	wait_command(int fd[2], char *command, char **argv)
 	exit(1);
 }
 
-char *get_command(int filedes[2])
+char	*get_command(int filedes[2])
 {
 	char	*foo;
 	char	*tmp;

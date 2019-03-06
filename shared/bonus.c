@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 18:42:13 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/04 13:47:06 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/06 17:54:27 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int		ft_rmdir(int fd, char **str)
 
 int		ft_unlink(int fd, char **str)
 {
-	return (redirect_command(UNLINK_PATH,str, fd));
+	return (redirect_command(UNLINK_PATH, str, fd));
 }

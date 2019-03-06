@@ -6,18 +6,11 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 19:09:49 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/04 13:42:40 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/06 17:46:10 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
-
-/* char	*malloc_file(char *file, int flag) */
-/* { */
-/* 	if ((fd = open(file, flag)) == ERROR_CODE) */
-/* 		return (NULL); */
-/* 	while (read(fd, buffer, buff_size) > 0) */
-/* } */
 
 char	*mmap_file(char *file, int flag)
 {

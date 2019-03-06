@@ -3,3 +3,4 @@ lls/lpwd/lcd
 mkdir
 rmdir
 unlink
+pretty prompt
