@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 15:50:23 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/05 16:46:35 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/06 17:29:47 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	print_serveur_output(int fd)
 
 int	interpret_command(int filedes, char *buffer)
 {
-	/* char *buffer; */
-	/* char	*out; */
 	const t_func_dic *local_fun = (t_func_dic[CMD_NBR]){
 	{"lcd", ft_cd},
 	{"lls", ft_ls},
@@ -37,21 +35,17 @@ int	interpret_command(int filedes, char *buffer)
 	const t_func_dic *fdic_server = (t_func_dic[CMD_NBR]){
 			{"get", ft_get},
 			{"put", ft_put},
-			/* {"quit", ft_quit} */
 	};
 
 	if (-1 != ft_strisin_tab(buffer, SERVER_TAB, CMD_NBR))
 	{
 		ft_putendl_fd(buffer, filedes);
-		/* out = ft_receive_str(filedes); */
-		/* ft_printf(out); */
-		/* ft_receive_str(filedes); */
 		if (ft_strncmp(buffer, "get", 3) && ft_strncmp(buffer, "put", 3))
 			ft_receive(filedes, 1);
 	}
-	if (handle_command(filedes, buffer, (t_func_dic*)fdic_server) < 0)
+	if (handle_command(filedes, buffer, (t_func_dic*)fdic_server, 0) < 0)
 		return (1);
-	else if (handle_command(1, buffer, (t_func_dic*)local_fun) < 0)
+	else if (handle_command(1, buffer, (t_func_dic*)local_fun, 0) < 0)
 		return (1);
 	return 0;
 }

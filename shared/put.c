@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 13:24:52 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/05 19:06:43 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/06 17:14:51 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ char	*ft_receive_str(int src)
 	int nb;
 
 	tmp = ft_memalloc(1);
-	get_next_line_b(src, &buffer, 1);
+	if (get_next_line_b(src, &buffer, 1) <= 0)
+		return (NULL);
 	nb = ft_atoi(buffer) + 1;
 	ft_memdel((void**)&buffer);
 	while (nb-- > 0)
@@ -91,11 +92,8 @@ int		ft_fdcpy(int src, int dest, size_t buff_size)
 
 int		ft_put(int fd, char **file_name)
 {
-	int		depths;
 	char	*file;
 
-	if (!calc_depths(file_name[1], &depths))
-		return (ft_send(NACCESS_PARENT, fd));
 	file = mmap_file(file_name[1], O_RDONLY);
 	if (!file)
 		return (ft_send(FILE_DOESNT_EXIST, fd));

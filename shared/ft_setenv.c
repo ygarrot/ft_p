@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 14:47:28 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/04 13:58:30 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/06 14:53:05 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void		ft_setenv(char **arg, char ***env)
 			ft_strcat(value, "=");
 			if (arg[2])
 				ft_strcat(value, arg[2]);
+			ft_setenv_new(env, arg[1], value);
 		}
 	}
 }

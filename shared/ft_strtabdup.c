@@ -1,23 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_ipv.c                                           :+:      :+:    :+:   */
+/*   ft_strtabdup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tcharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/04 17:16:15 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/04 17:43:31 by ygarrot          ###   ########.fr       */
+/*   Created: 2018/05/12 12:55:00 by tcharrie          #+#    #+#             */
+/*   Updated: 2019/03/06 16:59:16 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_p.h"
+#include "sh.h"
 
-int ip_version(const char *src) {
-	char	buf[16];
-
-	if (inet_pton(AF_INET, src, buf))
-		return (4);
-	else if (inet_pton(AF_INET6, src, buf))
-		return (6);
-	return (-1);
-}

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 13:50:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/04 13:48:10 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/06 15:27:58 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,16 @@ int		ft_pwd(int fd, char **str)
 
 int		ft_cd(int fd, char **str)
 {
-	const char	*arg[2] = {str[1], NULL};
-	int			*depths;
-	int			new_depths;
-
-	if (!(depths = calc_depths(str[1], &new_depths)))
+	char	*arg[2] = {str[1], NULL};
+	if (cd((char**)&arg, &g_env) < 0)
 		return (ft_send(REQUEST_ERROR, fd));
-	if (cd((char**)&arg, &g_env) >= 0)
-		*depths -= new_depths;
+	if (ft_strncmp(ft_getenv(g_env, "HOME"), ft_getenv(g_env, "PWD"), ft_strlen(ft_getenv(g_env, "HOME"))))
+	{
+		ft_send(REQUEST_ERROR, fd);
+		arg[0] = ft_getenv(g_env, "HOME");
+		cd((char**)&arg,&g_env);
+	}
 	else
-		return (ft_send(REQUEST_ERROR, fd));
-	ft_send(REQUEST_OK, fd);
+		ft_send(REQUEST_OK, fd);
 	return (1);
 }

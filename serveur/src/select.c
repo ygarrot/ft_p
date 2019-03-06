@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:27:48 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/05 19:10:34 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/06 17:27:16 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,17 @@ int read_from_client (int filedes)
 	{"mkdir", ft_mkdir},
 	{"rmdir", ft_rmdir},
 	{"unlink", ft_unlink},
-	/* {"quit", ft_quit} */
 };
 
-	get_next_line_b(filedes, &buffer, 1);
+	if (get_next_line_b(filedes, &buffer, 1) <= 0)
+		return (-1);
 	if (!ft_strcmp(buffer, "quit"))
-		return -1;
-	if (!ft_strlen(buffer))
-		return 0;
+		return (-1);
 	ft_printf ("Server: got message: `%s'\n", buffer);
-	handle_command(filedes, buffer, (t_func_dic*)fdic_server);
+	if (1
+		== handle_command(filedes, buffer, (t_func_dic*)fdic_server, 1))
+		ft_send(REQUEST_ERROR, filedes);
+	ft_memdel((void**)&buffer);
 	return 0;
 }
 
@@ -73,7 +74,6 @@ int		eval_loop(fd_set *active_fd_set, fd_set *read_fd_set, int sock)
 	{
 		if (!FD_ISSET (i, read_fd_set))
 			continue;
-		/* ft_printf("received message from: %d\n", i); */
 		if (i == sock)
 			handle_new_socket(active_fd_set, sock);
 		else
@@ -88,16 +88,13 @@ int		init_serveur(char *addr, int port)
 	fd_set active_fd_set, read_fd_set;
 	int sock;
 
-	/* Create the socket and set it up to accept connections. */
 	sock = create_server(addr, port);
 	if (listen (sock, QUEUE_LEN) < 0)
 		ft_exit(LISTEN_ERROR, EXIT_FAILURE);
-	/* Initialize the set of active sockets. */
 	FD_ZERO (&active_fd_set);
 	FD_SET (sock, &active_fd_set);
 	while (true)
 	{
-		/* Block until input arrives on one or more active sockets. */
 		read_fd_set = active_fd_set;
 		if (select (FD_SETSIZE, &read_fd_set, NULL, NULL, NULL) < 0)
 			ft_exit(SELECT_ERROR, EXIT_FAILURE);

@@ -109,7 +109,7 @@ int		ft_fdcpy2(int src, int dest, size_t buffsize);
 int		create_server(char *addr, int port);
 char	*ft_getenv(char **tb, char *str);
 void	ft_setenv(char **arg, char ***env);
-int	handle_command(int fd, char *str, t_func_dic *dic);
+int	handle_command(int fd, char *str, t_func_dic *dic, int is_server);
 int	ft_receive(int src, int dest);
 char	*ft_receive_str(int src);
 int		ft_send(char *str, int dest);
@@ -120,8 +120,9 @@ char	*mmap_file(char *file, int flag);
 int		ft_cd(int fd, char **argv);
 
 t_sockaddr	*get_sock_addr(char *addr,  int port, int is_serv);
-t_sockaddr	*get_ipv6_addr(char *address, int port);
-t_sockaddr	*get_ipv4_addr(char *address, int port);
+t_sockaddr_in6	*get_ipv6_addr(char *address, int port, t_sockaddr_in6 *ss);
+t_sockaddr_in	*get_ipv4_addr(char *address, int port, t_sockaddr_in *ss);
+char	**ft_strtabdup(char **tb);
 int	set_socket(int is_ipv4);
 
 int		ft_cd(int fd, char **argv);
