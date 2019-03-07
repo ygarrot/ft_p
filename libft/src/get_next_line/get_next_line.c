@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 11:48:02 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 09:43:41 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 16:03:08 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static t_gnl	*get_fd(t_gnl *list, int fd)
 static char		*initline(t_gnl *lst)
 {
 	int		i;
-	/* int		i2; */
 	size_t	len;
 	char	*temp;
 
@@ -55,9 +54,6 @@ static char		*initline(t_gnl *lst)
 	ft_strncat(temp, lst->buf, i);
 	len = ft_strlen(&lst->buf[i]);
 	ft_memcpy(lst->buf, &lst->buf[i + 1], len + 1);
-	/* i2 = -1; */
-	/* while (++i2 < (int)len) */
-		/* lst->buf[i2] = lst->buf[(i + 1) + i2]; */
 	lst->buf = ft_realloc(lst->buf, len);
 	return (temp);
 }

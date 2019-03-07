@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 13:36:31 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 15:04:24 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 16:10:38 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,26 @@
 ** alternate to func dic
 */
 
-int		*calc_depths(char *str, int *new_depths, int is_cd)
+static int	is_sub(char *str, int i, int *new_depths)
+{
+	char		*tmp;
+
+	if (i > 0 && ft_strncmp(&str[i], "/.", 2)
+			&& str[i] == '/' && str[i + 1])
+	{
+		tmp = ft_strndup(str, i + 1 + ft_strlento(&str[i + 1], '/'));
+		if (is_directory_str(tmp) == 1)
+			--*new_depths;
+		ft_memdel((void**)&tmp);
+		return (1);
+	}
+	return (0);
+}
+
+int			*calc_depths(char *str, int *new_depths, int is_cd)
 {
 	static int	depths = 0;
 	int			i;
-	char		*tmp;
 	int			set;
 
 	i = -1;
@@ -35,19 +50,13 @@ int		*calc_depths(char *str, int *new_depths, int is_cd)
 			if (!is_cd && (depths - *new_depths) < 0)
 				return (&depths);
 		}
-		else if (i > 0 && ft_strncmp(&str[i], "/.", 2)
-				&& str[i] == '/' && str[i + 1])
-		{
-			tmp = ft_strndup(str, i + 1 + ft_strlento(&str[i + 1], '/'));
-			if (is_directory_str(tmp) == 1 && (set = 1))
-				--*new_depths;
-			ft_memdel((void**)&tmp);
-		}
+		else
+			set = is_sub(str, i, new_depths);
 	*new_depths = (set ? *new_depths : -1);
 	return (&depths);
 }
 
-int check_access(char **argv)
+int			check_access(char **argv)
 {
 	int	i;
 	int	*depths;
@@ -59,13 +68,13 @@ int check_access(char **argv)
 	while (argv[++i])
 	{
 		if (!(depths = calc_depths(argv[i], &new_depths, 0)) ||
-			argv[i][0] == '/' || (*depths - new_depths) < 0)
+				argv[i][0] == '/' || (*depths - new_depths) < 0)
 			return (ERROR_CODE);
 	}
 	return (1);
 }
 
-char	**handle_command(int fd, char *str, t_func_dic *fdic, int is_server)
+char		**handle_command(int fd, char *str, t_func_dic *fdic, int is_server)
 {
 	int		(*ft)(int, char**);
 	char	**argv;
@@ -74,7 +83,7 @@ char	**handle_command(int fd, char *str, t_func_dic *fdic, int is_server)
 	str[ft_strlento(str, '\n')] = '\0';
 	if (!(argv = ft_strsplit(str, ' ')))
 		return (NULL);
-	if (!(ft = get_cmd(argv[0], (t_func_dic*)fdic)))
+	if (!get_cmd(argv[0], fdic, &ft))
 	{
 		ft_free_dblechar_tab(argv);
 		return (NULL);

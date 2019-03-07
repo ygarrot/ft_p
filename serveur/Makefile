@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/07 15:19:04 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/07 16:05:35 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,23 +28,24 @@ OBJ_DIR = obj
 SRC =\
 	 main.c\
 	 create_server.c\
+	 parse_command.c\
 	 select.c
 
 SHARED_SRC = \
-		misc.c\
-		ft_exit.c\
-		ip_version.c\
-		socket_creation.c\
-	 handle_command.c\
-	 mmap_file.c\
-	 bonus.c\
-	   ft_cd.c\
-	   ft_env.c\
-	   ft_setenv.c\
-	   func_tab.c\
-	   get.c\
-	   put.c\
-	   redirect_command.c
+			 misc.c\
+			 ft_exit.c\
+			 ip_version.c\
+			 socket_creation.c\
+			 handle_command.c\
+			 mmap_file.c\
+			 bonus.c\
+			 ft_cd.c\
+			 ft_env.c\
+			 ft_setenv.c\
+			 func_tab.c\
+			 get.c\
+			 put.c\
+			 redirect_command.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 20:54:47 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/03/12 12:59:41 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 16:01:59 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ char			*convwchar(wchar_t v)
 	str[size--] = '\0';
 	if (size > 0)
 	{
-		str[temp2++] = (char)(((v >> size * 6) | 192) + (size > 1 ? size * 16 : 0));
+		str[temp2++] = (char)(((v >> size * 6) | 192)
+		+ (size > 1 ? size * 16 : 0));
 		while (size-- > 0)
 			str[temp2++] = (char)((v >> size * 6 & 0x3f) | 0x80);
 	}

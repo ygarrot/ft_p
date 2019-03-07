@@ -6,19 +6,23 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 11:21:21 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/04 12:05:16 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 16:12:08 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-int		(*get_cmd(char *cmd, t_func_dic *ft))(int fd, char **string)
+int				get_cmd(char *cmd, t_func_dic *dic,
+	int (**ft)(int, char**))
 {
 	int		i;
 
 	i = -1;
-	while (ft[++i].name)
-		if (!ft_strcmp(cmd, ft[i].name))
-			return (ft[i].function);
-	return (NULL);
+	while (dic[++i].name)
+		if (!ft_strcmp(cmd, dic[i].name))
+		{
+			*ft = dic[i].function;
+			return (1);
+		}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 13:50:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 12:58:25 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 16:14:08 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		ft_cd(int fd, char **str)
 	if (ft_strncmp(ft_getenv(g_env, "HOME"),
 		ft_getenv(g_env, "PWD"), ft_strlen(ft_getenv(g_env, "HOME"))))
 	{
-		ft_send(REQUEST_ERROR, fd);
+		ft_send(NACCESS_PARENT, fd);
 		arg[0] = ft_getenv(g_env, "HOME");
 		cd((char**)&arg, &g_env);
 	}

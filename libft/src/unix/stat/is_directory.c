@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 12:22:07 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/03 14:32:28 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 16:01:10 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_directory(int fd)
 	return (S_ISDIR(statbuf.st_mode));
 }
 
-int is_directory_str(char *str)
+int	is_directory_str(char *str)
 {
 	int	fd;
 	int	ret;

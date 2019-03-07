@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 13:47:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 15:04:53 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 15:56:33 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	exec_comm(int fd[2], char *command, char **argv)
 
 char	*get_command(int filedes[2], int pid)
 {
-	int status;
-	struct rusage usage;
-	char	*foo;
-	char	*tmp;
+	struct rusage	usage;
+	int				status;
+	char			*foo;
+	char			*tmp;
 
 	if (!(tmp = ft_memalloc(1)))
 		return (NULL);

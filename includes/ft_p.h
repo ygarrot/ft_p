@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 12:34:50 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 13:48:07 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 16:12:15 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_P_H
 
 # include "../libft/includes/libft.h"
-# include "./debug.h"
 # include <sys/select.h>
 # include <sys/types.h>
 
@@ -95,7 +94,7 @@ int				ip_version(const char *src);
 int				ft_exit(char *str, int code);
 int				*calc_depths(char *str, int *new_depths, int is_cd);
 char			*get_command_output(char *command, char*argv[]);
-int				(*get_cmd(char *cmd, t_func_dic *ft))(int fd, char **arg);
+int				get_cmd(char *cmd, t_func_dic *dic, int (**ft)(int, char**));
 int				redirect_command(char *command, char *argv[], int fd);
 int				ft_fdcpy(int src, int dest, size_t buffsize);
 int				ft_fdcpy2(int src, int dest, size_t buffsize);
