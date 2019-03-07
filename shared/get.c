@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 17:18:17 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/06 17:16:19 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 11:45:35 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_get(int fd, char **file_name)
 	int		i;
 	char	*to_del;
 
-	get_next_line_b(fd, &to_del, 1);
+	get_next_line(fd, &to_del);
 	if (!to_del || ft_strncmp(to_del, "OK", 2))
 	{
 		ft_memdel((void**)&to_del);
@@ -41,7 +41,7 @@ int		ft_get(int fd, char **file_name)
 		return (ERROR_CODE);
 	}
 	ft_receive(fd, file_fd);
-	if (close(file_fd) < -1)
+	if (close(file_fd) == ERROR_CODE)
 		ft_putendl_fd(CLOSE_ERROR, STDERR_FILENO);
 	return (EXIT_SUCCESS);
 }

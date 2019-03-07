@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 13:50:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/06 17:53:36 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 12:58:25 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int		ft_pwd(int fd, char **str)
 
 int		ft_cd(int fd, char **str)
 {
+	int			depth;
+	int			*last;
 	const char	*arg[2] = {str[1], NULL};
 
 	if (cd((char**)&arg, &g_env) < 0)
@@ -42,5 +44,11 @@ int		ft_cd(int fd, char **str)
 	}
 	else
 		ft_send(REQUEST_OK, fd);
-	return (1);
+	last = calc_depths(&ft_getenv(g_env, "PWD")
+	[ft_strlen(ft_getenv(g_env, "HOME"))], &depth, 1);
+	*last -= depth;
+	if (!ft_strlen(&ft_getenv(g_env, "PWD")
+	[ft_strlen(ft_getenv(g_env, "HOME"))]))
+		*last = 0;
+	return (0);
 }

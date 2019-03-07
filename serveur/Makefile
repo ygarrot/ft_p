@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/06 18:34:59 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/07 11:18:37 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@
 NAME = serveur
 
 FLAGS = -Wall -Werror -Wextra
-FLAGS += -fsanitize=address,undefined -g3
+FLAGS += -g3
+FLAGS += -fsanitize=address,undefined
 SRC_DIR = src
 
 INCLUDE =  includes/\
@@ -67,10 +68,11 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c includes/$(NAME).h
 $(NAME): obj_dir $(OBJS) $(SHARED_OBJS) 
 	@make -C ../libft
 	@gcc $(FLAGS) -o $(NAME) $(OBJS) $(SHARED_OBJS) -I $(INCLUDE) -L ../libft -l ft
+	echo $(NAME) is compiled
 
 obj_dir:
-	@mkdir $(OBJ_DIR) || true
-	@mkdir ../$(OBJ_DIR) || true
+	@mkdir -p $(OBJ_DIR) || true
+	@mkdir -p ../$(OBJ_DIR) || true
 
 clean:
 	@rm -rf $(OBJ_DIR)

@@ -6,15 +6,31 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:27:48 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/06 18:02:23 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 12:08:47 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "serveur.h"
 
+char	*must_quit(int filedes)
+{
+	char		*buffer;
+
+	buffer = NULL;
+	if (get_next_line(filedes, &buffer) <= 0
+		|| !ft_strcmp(buffer, "quit"))
+	{
+		ft_memdel((void**)&buffer);
+		return (NULL);
+	}
+	ft_printf("Server: got message: `%s'\n", buffer);
+	return (buffer);
+}
+
 int		read_from_client(int filedes)
 {
 	char		*buffer;
+	char		**to_del;
 	t_func_dic	*fdic_server;
 
 	fdic_server = (t_func_dic[CMD_NBR]){
@@ -27,14 +43,11 @@ int		read_from_client(int filedes)
 	{"rmdir", ft_rmdir},
 	{"unlink", ft_unlink}
 	};
-	if (get_next_line_b(filedes, &buffer, 1) <= 0)
+	if (!(buffer = must_quit(filedes)))
 		return (-1);
-	if (!ft_strcmp(buffer, "quit"))
-		return (-1);
-	ft_printf("Server: got message: `%s'\n", buffer);
-	if (1
-		== handle_command(filedes, buffer, (t_func_dic*)fdic_server, 1))
+	if (!(to_del = handle_command(filedes, buffer, (t_func_dic*)fdic_server, 1)))
 		ft_send(REQUEST_ERROR, filedes);
+	ft_free_dblechar_tab(to_del);
 	ft_memdel((void**)&buffer);
 	return (0);
 }

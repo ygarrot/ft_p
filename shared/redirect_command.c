@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 13:47:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/06 17:52:20 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/06 19:10:44 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*get_command(int filedes[2])
 		ft_memdel((void**)&foo);
 	}
 	tmp[ft_strlen(tmp)] = 0;
+	ft_memdel((void**)&foo);
 	return (tmp);
 }
 

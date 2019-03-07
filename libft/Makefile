@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 12:06:15 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/05 17:52:51 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/07 11:19:05 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ NAME = libft.a
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-CFLAGS += -g3 -fsanitize=address,undefined
+CFLAGS += -g3
+CFLAGS += -fsanitize=address,undefined
 
 SRCDIR = src
 OBJDIR = obj

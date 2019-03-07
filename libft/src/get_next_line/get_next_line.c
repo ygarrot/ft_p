@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 11:48:02 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/02 17:23:09 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 09:43:41 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static t_gnl	*get_fd(t_gnl *list, int fd)
 static char		*initline(t_gnl *lst)
 {
 	int		i;
-	int		i2;
+	/* int		i2; */
 	size_t	len;
 	char	*temp;
 
@@ -53,11 +53,12 @@ static char		*initline(t_gnl *lst)
 	if (!(temp = ft_strnew(i)))
 		return (NULL);
 	ft_strncat(temp, lst->buf, i);
-	i2 = -1;
 	len = ft_strlen(&lst->buf[i]);
-	while (++i2 < (int)len)
-		lst->buf[i2] = lst->buf[(i + 1) + i2];
-	lst->buf = ft_realloc(lst->buf, i2);
+	ft_memcpy(lst->buf, &lst->buf[i + 1], len + 1);
+	/* i2 = -1; */
+	/* while (++i2 < (int)len) */
+		/* lst->buf[i2] = lst->buf[(i + 1) + i2]; */
+	lst->buf = ft_realloc(lst->buf, len);
 	return (temp);
 }
 
@@ -75,6 +76,8 @@ int				get_next_line(const int fd, char **line)
 	if (BUFF_SIZE < 1 || !line || fd < 0 || (i = 0)
 			|| !(lst = get_fd(&gl, fd)) || !lst->buf)
 		return (lst && !lst->buf ? 0 : -1);
+	if (ft_strchr(lst->buf, '\n') && (*line = initline(lst)))
+		return (1);
 	while (!i && (ret = read(fd, gl.buf, BUFF_SIZE)) > 0)
 	{
 		lst->buf = ft_realloc(lst->buf, (ft_strlen(lst->buf) + ret + 1));

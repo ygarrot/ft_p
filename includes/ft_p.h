@@ -6,14 +6,14 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 12:34:50 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/06 18:53:26 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 12:33:57 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_P_H
 # define FT_P_H
 
-# include "../../libft/ includes/libft.h"
+# include "../libft/includes/libft.h"
 # include "./debug.h"
 # include <sys/select.h>
 # include <sys/types.h>
@@ -93,7 +93,7 @@ int				ft_socketcpy(int src, int dest);
 int				ip_version(const char *src);
 
 int				ft_exit(char *str, int code);
-int				*calc_depths(char *str, int *new_depths);
+int				*calc_depths(char *str, int *new_depths, int is_cd);
 char			*get_command_output(char *command, char*argv[]);
 int				(*get_cmd(char *cmd, t_func_dic *ft))(int fd, char **arg);
 int				redirect_command(char *command, char *argv[], int fd);
@@ -102,7 +102,7 @@ int				ft_fdcpy2(int src, int dest, size_t buffsize);
 int				create_server(char *addr, int port);
 char			*ft_getenv(char **tb, char *str);
 void			ft_setenv(char **arg, char ***env);
-int				handle_command(int fd, char *str,
+char			**handle_command(int fd, char *str,
 				t_func_dic *dic, int is_server);
 int				ft_receive(int src, int dest);
 char			*ft_receive_str(int src);

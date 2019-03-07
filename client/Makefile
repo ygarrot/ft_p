@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/06 18:34:39 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/07 11:18:18 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@
 NAME = client
 
 FLAGS = -Wall -Werror -Wextra
-FLAGS += -fsanitize=address,undefined -g3
+FLAGS += -g3
+FLAGS += -fsanitize=address,undefined
 SRC_DIR = src
 
 INCLUDE =  includes/\

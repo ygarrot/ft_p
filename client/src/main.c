@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 15:42:04 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/06 18:22:14 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 11:11:05 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	main(int ac, char *av[], char **env)
 		ft_printf("Please give me a port and an address\n");
 		return (1);
 	}
+	g_env = ft_strtabdup(env);
 	if (!ft_getenv(g_env, "PWD") || !ft_getenv(g_env, "HOME"))
 		return (ft_printf("%s\n", NO_PWD));
-	g_env = ft_strtabdup(env);
 	read_loop(av[1], ft_atoi(av[2]));
 	return (1);
 }
