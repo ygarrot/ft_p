@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 15:42:04 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 11:11:05 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 14:44:51 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	create_client(char *address, int port)
 	t_sockaddr_in	sin;
 	t_sockaddr		*s_sock;
 
+	ft_bzero(&sin2, sizeof(sin2));
+	ft_bzero(&sin, sizeof(sin));
 	sock = set_socket(ip_version(address) == 4);
 	s_sock = ip_version(address) == 4 ?
 	(t_sockaddr*)get_ipv4_addr(address, port, &sin)
@@ -43,5 +45,6 @@ int	main(int ac, char *av[], char **env)
 	if (!ft_getenv(g_env, "PWD") || !ft_getenv(g_env, "HOME"))
 		return (ft_printf("%s\n", NO_PWD));
 	read_loop(av[1], ft_atoi(av[2]));
+	ft_free_dblechar_tab(g_env);
 	return (1);
 }

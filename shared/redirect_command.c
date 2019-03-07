@@ -6,13 +6,13 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 13:47:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/06 19:10:44 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 15:04:53 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_p.h"
 
-void	wait_command(int fd[2], char *command, char **argv)
+void	exec_comm(int fd[2], char *command, char **argv)
 {
 	while ((dup2(fd[1], STDOUT_FILENO) == ERROR_CODE))
 		;
@@ -25,8 +25,10 @@ void	wait_command(int fd[2], char *command, char **argv)
 	exit(1);
 }
 
-char	*get_command(int filedes[2])
+char	*get_command(int filedes[2], int pid)
 {
+	int status;
+	struct rusage usage;
 	char	*foo;
 	char	*tmp;
 
@@ -34,6 +36,7 @@ char	*get_command(int filedes[2])
 		return (NULL);
 	if (close(filedes[1]) == ERROR_CODE)
 		ft_putendl_fd(CLOSE_ERR, STDERR_FILENO);
+	foo = NULL;
 	while (get_next_line(filedes[0], &foo) > 0)
 	{
 		if (!(tmp = ft_realloc(tmp, ft_strlen(tmp)
@@ -45,6 +48,7 @@ char	*get_command(int filedes[2])
 	}
 	tmp[ft_strlen(tmp)] = 0;
 	ft_memdel((void**)&foo);
+	wait4(pid, &status, 0, &usage);
 	return (tmp);
 }
 
@@ -58,9 +62,9 @@ char	*get_command_output(char *command, char *argv[])
 	if ((pid = fork()) == ERROR_CODE)
 		ft_exit(FORK_ERR, 1);
 	else if (!pid)
-		wait_command(filedes, command, argv);
+		exec_comm(filedes, command, argv);
 	else
-		return (get_command(filedes));
+		return (get_command(filedes, pid));
 	return (NULL);
 }
 

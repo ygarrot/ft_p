@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 11:10:57 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/06 18:10:48 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 14:56:51 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,14 @@ int	change_dir(char *arg, char ***env, char is_old)
 		return (-1);
 	oldpwd = ft_getenv(*env, "OLDPWD");
 	if (chdir(is_old ? oldpwd : arg) && arg)
+	{
+		ft_memdel((void**)&current);
 		return (-1);
+	}
 	getcwd(path, 256);
 	new_oldpwd = (char*[3]){"", "OLDPWD", current};
 	ft_setenv(new_oldpwd, env);
+	ft_memdel((void**)&current);
 	new_oldpwd = (char*[3]){"", "PWD", path};
 	ft_setenv(new_oldpwd, env);
 	return (1);

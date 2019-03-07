@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 17:18:17 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 11:45:35 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 15:16:07 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ int		ft_get(int fd, char **file_name)
 	int		i;
 	char	*to_del;
 
+	to_del = NULL;
 	get_next_line(fd, &to_del);
-	if (!to_del || ft_strncmp(to_del, "OK", 2))
+	if (!to_del || ft_strcmp(to_del, "OK"))
 	{
 		ft_memdel((void**)&to_del);
-		return (ERROR_CODE);
+		return (EXIT_SUCCESS);
 	}
 	ft_memdel((void**)&to_del);
 	i = ft_strlen(file_name[1]);

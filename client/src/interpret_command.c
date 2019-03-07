@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 15:50:23 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 11:24:09 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 15:15:51 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	interpret_command(int filedes, char *buffer)
 {
 	t_func_dic	*local_fun;
 	t_func_dic	*fdic_server;
+	char		**tmp;
 
 	local_fun = (t_func_dic[CMD_NBR]){
 	{"lcd", ft_cd},
@@ -31,10 +32,9 @@ int	interpret_command(int filedes, char *buffer)
 		if (ft_strncmp(buffer, "get", 3) && ft_strncmp(buffer, "put", 3))
 			ft_receive(filedes, 1);
 	}
-	if (handle_command(filedes, buffer, (t_func_dic*)fdic_server, 0) < 0)
-		return (1);
-	else if (handle_command(1, buffer, (t_func_dic*)local_fun, 0) < 0)
-		return (1);
+	if (!(tmp = handle_command(filedes, buffer, (t_func_dic*)fdic_server, 0)))
+		tmp = handle_command(1, buffer, (t_func_dic*)local_fun, 0);
+	ft_free_dblechar_tab(tmp);
 	return (0);
 }
 

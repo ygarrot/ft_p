@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 13:24:52 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 11:51:25 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 15:16:05 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,11 @@ int		ft_put(int fd, char **file_name)
 
 	file = mmap_file(file_name[1], O_RDONLY);
 	if (!file)
-		return (ft_send(FILE_DOESNT_EXIST, fd));
+	{
+		ft_putendl_fd(FILE_DOESNT_EXIST, 1);
+		ft_putendl_fd(FILE_DOESNT_EXIST, fd);
+		return (1);
+	}
 	ft_putendl_fd(REQUEST_OK, fd);
 	ft_send(file, fd);
 	return (1);

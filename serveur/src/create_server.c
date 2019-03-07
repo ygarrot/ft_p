@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 12:21:09 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/06 18:13:28 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 14:49:50 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ int	create_server(char *address, int port)
 	t_sockaddr_in	sin;
 	t_sockaddr		*s_sock;
 
+	sock = 0;
+	ft_bzero(&sin2, sizeof(sin2));
+	ft_bzero(&sin, sizeof(sin));
 	sock = set_socket(ip_version(address) == 4);
 	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR,
 	&reuseaddr, sizeof(reuseaddr));

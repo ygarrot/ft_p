@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 12:34:50 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 12:33:57 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 13:48:07 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@
 # define RECV_ERROR "RECV ERROR"
 # define WRITE_ERROR "WRITE ERROR"
 # define READ_ERROR "READ ERROR"
-# define FILE_DOESNT_EXIST "ERROR no such file\n"
-# define NACCESS_PARENT "ERROR cannot access to parents\n"
+# define FILE_DOESNT_EXIST "ERROR no such file"
+# define NACCESS_PARENT "ERROR cannot access to parents"
 # define REQUEST_OK "OK"
-# define REQUEST_ERROR "ERROR\n"
+# define REQUEST_ERROR "ERROR"
 # define CLOSE_ERROR "ERROR ON CLOSE"
-# define OPEN_ERROR "NO SUCH FILE OR DIRECTORY\n"
-# define OOM_DEVICE "NO SPACE LEFT ON DEVICE\n"
+# define OPEN_ERROR "NO SUCH FILE OR DIRECTORY"
+# define OOM_DEVICE "NO SPACE LEFT ON DEVICE"
 # define QUEUE_LEN 10
 # define ACCEPT_ERROR "ACCEPT ERROR"
 # define LISTEN_ERROR "LISTEN ERROR"

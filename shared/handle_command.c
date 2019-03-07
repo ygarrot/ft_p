@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 13:36:31 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 13:00:44 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/07 15:04:24 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,18 @@ char	**handle_command(int fd, char *str, t_func_dic *fdic, int is_server)
 {
 	int		(*ft)(int, char**);
 	char	**argv;
-	int		isdel;
 	int		ret;
 
-	isdel = 0;
 	str[ft_strlento(str, '\n')] = '\0';
 	if (!(argv = ft_strsplit(str, ' ')))
 		return (NULL);
 	if (!(ft = get_cmd(argv[0], (t_func_dic*)fdic)))
-		return (argv);
-	if (is_server && argv[1] && argv[2] && (isdel=1))
-		argv[2] = NULL;
+	{
+		ft_free_dblechar_tab(argv);
+		return (NULL);
+	}
 	if (is_server && check_access(argv) == ERROR_CODE)
 	{
-		isdel == 1 ? argv[2] = "" : 0;
 		ft_send(NACCESS_PARENT, fd);
 		return (argv);
 	}
