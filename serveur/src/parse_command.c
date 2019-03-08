@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:03:53 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 16:06:08 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/08 15:14:00 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ static char	*must_quit(int filedes)
 	char		*buffer;
 
 	buffer = NULL;
-	if (get_next_line(filedes, &buffer) <= 0
-		|| !ft_strcmp(buffer, "quit"))
+	if (get_next_line(filedes, &buffer) <= 0)
+		return (NULL);
+	if (!ft_strcmp(buffer, "quit"))
 	{
 		ft_memdel((void**)&buffer);
 		return (NULL);
 	}
 	ft_printf("Server: got message: `%s'\n", buffer);
-	return (buffer);
+	return (ft_strdup(buffer));
 }
 
 int			read_from_client(int filedes)
@@ -46,7 +47,7 @@ int			read_from_client(int filedes)
 	if (!(buffer = must_quit(filedes)))
 		return (-1);
 	if (!(to_del = handle_command(filedes, buffer, fdic_server, 1)))
-		ft_send(REQUEST_ERROR, filedes);
+		ft_send(NO_CMD, filedes);
 	ft_free_dblechar_tab(to_del);
 	ft_memdel((void**)&buffer);
 	return (0);

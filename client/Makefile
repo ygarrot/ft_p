@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/07 15:18:18 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/03/08 19:01:52 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,12 +31,12 @@ SRC =\
 
 SHARED_SRC = \
 			 socket_creation.c\
+			 socket.c\
 			 ip_version.c\
 			 misc.c\
 			 ft_cd.c\
 			 ft_exit.c\
 			 ft_env.c\
-			 mmap_file.c\
 			 handle_command.c\
 			 ft_setenv.c\
 			 func_tab.c\

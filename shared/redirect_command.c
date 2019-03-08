@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 13:47:40 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 15:56:33 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/08 15:11:47 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	exec_comm(int fd[2], char *command, char **argv)
 {
 	while ((dup2(fd[1], STDOUT_FILENO) == ERROR_CODE))
 		;
+	dup2(fd[1], STDERR_FILENO);
 	if (close(fd[1]) < 0)
 		ft_putendl_fd(CLOSE_ERR, STDERR_FILENO);
 	if (close(fd[0]) < 0)
@@ -72,13 +73,13 @@ int		redirect_command(char *command, char *argv[], int fd)
 {
 	char *buffer;
 
-	buffer = get_command_output(command, argv);
-	if (!buffer)
+	if (!(buffer = get_command_output(command, argv)))
 		return (ft_send(OOM_DEVICE, fd));
 	if (fd != 1)
 		ft_send(buffer, fd);
 	else
-		ft_printf(buffer, fd);
+		ft_printf("{boldgreen}[ SUCCESS ]{reset} %s\n%s",
+				argv[0], buffer);
 	ft_memdel((void**)&buffer);
-	return (0);
+	return (EXIT_SUCCESS);
 }

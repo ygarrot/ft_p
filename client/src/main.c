@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 15:42:04 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 14:44:51 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/08 19:30:18 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	create_client(char *address, int port)
 
 	ft_bzero(&sin2, sizeof(sin2));
 	ft_bzero(&sin, sizeof(sin));
+	if (!ft_strcmp(address, "localhost"))
+		address = "127.0.0.1";
 	sock = set_socket(ip_version(address) == 4);
 	s_sock = ip_version(address) == 4 ?
 	(t_sockaddr*)get_ipv4_addr(address, port, &sin)

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 12:34:50 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 16:12:15 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/08 19:35:10 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,34 +32,36 @@
 # include <netdb.h>
 
 # define MAXMSG  512
-# define NO_PWD "NO PWD FOUND"
-# define SEND_ERROR "SEND ERROR"
-# define RECV_ERROR "RECV ERROR"
-# define WRITE_ERROR "WRITE ERROR"
-# define READ_ERROR "READ ERROR"
-# define FILE_DOESNT_EXIST "ERROR no such file"
-# define NACCESS_PARENT "ERROR cannot access to parents"
-# define REQUEST_OK "OK"
-# define REQUEST_ERROR "ERROR"
-# define CLOSE_ERROR "ERROR ON CLOSE"
-# define OPEN_ERROR "NO SUCH FILE OR DIRECTORY"
-# define OOM_DEVICE "NO SPACE LEFT ON DEVICE"
+# define BUFF_S 1000
+# define NO_PWD "ERROR NO PWD FOUND\n"
+# define NO_CMD "ERROR This command is invalid\n"
+# define SEND_ERROR "ERROR SEND ERROR\n"
+# define RECV_ERROR "ERROR RECV ERROR\n"
+# define WRITE_ERROR "ERRROR WRITE ERROR\n"
+# define READ_ERROR "ERROR READ ERROR\n"
+# define FILE_DOESNT_EXIST "ERROR no such file\n"
+# define NACCESS_PARENT "ERROR cannot access to parents\n"
+# define REQUEST_OK "OK\n"
+# define REQUEST_ERROR "ERROR\n"
+# define CLOSE_ERROR "ERROR ON CLOSE\n"
+# define OPEN_ERROR "ERROR NO SUCH FILE OR DIRECTORY\n"
+# define OOM_DEVICE "ERROR NO SPACE LEFT ON DEVICE\n"
 # define QUEUE_LEN 10
-# define ACCEPT_ERROR "ACCEPT ERROR"
-# define LISTEN_ERROR "LISTEN ERROR"
-# define SELECT_ERROR "SELECT ERROR"
-# define PIPE_ERR "ERROR ON PIPE"
-# define FORK_ERR "ERROR ON FORK"
-# define CLOSE_ERR "ERROR ON CLOSE"
-# define EXECV_ERR "ERROR ON EXECV"
-# define READ_ERR "ERROR ON READ"
+# define ACCEPT_ERROR "ERROR ACCEPT ERROR\n"
+# define LISTEN_ERROR "ERROR LISTEN ERROR\n"
+# define SELECT_ERROR "ERROR SELECT ERROR\n"
+# define PIPE_ERR "ERROR ON PIPE\n"
+# define FORK_ERR "ERROR ON FORK\n"
+# define CLOSE_ERR "ERROR ON CLOSE\n"
+# define EXECV_ERR "ERROR ON EXECV\n"
+# define READ_ERR "ERROR ON READ\n"
 # define LS_PATH "/bin/ls"
 # define PWD_PATH "/bin/pwd"
 # define MKDIR_PATH "/bin/mkdir"
 # define RMDIR_PATH "/bin/rmdir"
 # define UNLINK_PATH "/bin/unlink"
-# define BIND_ERROR "BIND ERROR"
-# define SOCKET_ERROR "SOCKET ERROR"
+# define BIND_ERROR "ERROR BIND ERROR\n"
+# define SOCKET_ERROR "ERROR SOCKET ERROR\n"
 # define ERROR_CODE -1
 
 typedef struct sockaddr	t_sockaddr;
@@ -103,12 +105,18 @@ char			*ft_getenv(char **tb, char *str);
 void			ft_setenv(char **arg, char ***env);
 char			**handle_command(int fd, char *str,
 				t_func_dic *dic, int is_server);
+
+int				ft_fdcpy(int src, int dest, size_t buff_size);
+int				receive_file(int src, int dst, int len);
+int				send_file(int str, int dest, size_t size);
+
 int				ft_receive(int src, int dest);
 char			*ft_receive_str(int src);
 int				ft_send(char *str, int dest);
+
 int				cd(char *argv[], char ***env);
 
-char			*mmap_file(char *file, int flag);
+void			*mmap_file(char *file, int flag);
 int				ft_cd(int fd, char **argv);
 
 t_sockaddr		*get_sock_addr(char *addr, int port, int is_serv);

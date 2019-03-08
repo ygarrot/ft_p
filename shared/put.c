@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 13:24:52 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/07 15:16:05 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/03/08 19:37:17 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,45 +21,25 @@
 
 int		ft_send(char *str, int dest)
 {
-	int		i;
-	int		n;
-	char	*to_del;
+	size_t size;
 
-	i = -1;
-	n = 0;
-	while (str[++i])
-		if (str[i] == '\n')
-			n++;
-	if (!(to_del = ft_itoa(n)))
-		return (ERROR_CODE);
-	ft_putendl_fd(to_del, dest);
-	ft_memdel((void**)&to_del);
-	ft_putendl_fd(str, dest);
-	return (0);
+	size = ft_strlen(str);
+	send(dest, &size, sizeof(int), 0);
+	send(dest, str, size, 0);
+	return (1);
 }
 
 char	*ft_receive_str(int src)
 {
-	char	*tmp;
+	int		len;
 	char	*buffer;
-	int		nb;
 
-	tmp = ft_memalloc(1);
-	if (get_next_line(src, &buffer) <= 0)
+	recv(src, &len, sizeof(int), 0);
+	if (len <= 0)
 		return (NULL);
-	nb = ft_atoi(buffer) + 1;
-	ft_memdel((void**)&buffer);
-	while (nb-- > 0)
-	{
-		if (get_next_line(src, &buffer) <= 0)
-			return (tmp);
-		tmp = ft_realloc(tmp, ft_strlen(tmp) + ft_strlen(buffer) + 2);
-		ft_strcat(tmp, buffer);
-		ft_memdel((void**)&buffer);
-		if (nb - 1)
-			ft_strcat(tmp, "\n");
-	}
-	return (tmp);
+	buffer = ft_strnew(len);
+	recv(src, buffer, len, 0);
+	return (buffer);
 }
 
 int		ft_receive(int src, int dest)
@@ -75,16 +55,21 @@ int		ft_receive(int src, int dest)
 
 int		ft_put(int fd, char **file_name)
 {
-	char	*file;
+	struct stat	filestat;
+	int			new_fd;
 
-	file = mmap_file(file_name[1], O_RDONLY);
-	if (!file)
+	new_fd = open(file_name[1], O_RDONLY);
+	if (new_fd < 0 || is_directory(new_fd)
+			|| fstat(new_fd, &filestat) < 0)
 	{
-		ft_putendl_fd(FILE_DOESNT_EXIST, 1);
-		ft_putendl_fd(FILE_DOESNT_EXIST, fd);
+		ft_printf("{boldred} [ ERROR ]{reset} %s\n", file_name[1]);
+		ft_putendl_fd(OPEN_ERROR, STDERR_FILENO);
+		ft_putstr_fd(REQUEST_ERROR, fd);
 		return (1);
 	}
-	ft_putendl_fd(REQUEST_OK, fd);
-	ft_send(file, fd);
+	ft_putstr_fd(REQUEST_OK, fd);
+	ft_printf("{boldgreen} [ SUCCESS ]{reset} sent %s\n", file_name[1]);
+	send_file(new_fd, fd, filestat.st_size);
+	close(new_fd);
 	return (1);
 }
