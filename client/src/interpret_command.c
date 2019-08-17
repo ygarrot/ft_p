@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 15:50:23 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/08/17 13:15:33 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/08/17 13:26:57 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	print_state(char *buffer, int filedes)
 		|| !ft_strncmp(buffer, "put", lenn))
 		return ;
 	ret = ft_receive_str(filedes);
-	ft_printf("%s\n", ret);
 	if (!ret)
 	{
 		ft_printf("{boldgreen}[ SUCCESS ]{reset} %s\n", buffer);
