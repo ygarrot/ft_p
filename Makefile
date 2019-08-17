@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2019/03/07 15:28:44 by ygarrot          ###   ########.fr        #
+#    Updated: 2019/08/15 13:06:14 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME = ft_p
 
 all: $(NAME)
 
+$(NAME): client serveur
 
 client:
 	@make -C client
@@ -23,11 +24,9 @@ client:
 serveur:
 	@make -C serveur
 
-$(NAME): client serveur
-
 clean:
-	@make -C serveur
-	@make -C client 
+	@make -C serveur clean
+	@make -C client clean
 
 fclean:
 	make -C serveur fclean
