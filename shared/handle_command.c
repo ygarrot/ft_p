@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 13:36:31 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/08 12:56:23 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/08/17 13:18:11 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char		**handle_command(int fd, char *str, t_func_dic *fdic, int is_server)
 	char	**argv;
 
 	str[ft_strlento(str, '\n')] = '\0';
+	ft_printf(str);
 	if (!(argv = ft_strsplit(str, ' ')))
 		return (NULL);
 	if (!get_cmd(argv[0], fdic, &ft))
