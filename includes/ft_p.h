@@ -6,14 +6,14 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 12:34:50 by ygarrot           #+#    #+#             */
-/*   Updated: 2019/03/08 19:35:10 by ygarrot          ###   ########.fr       */
+/*   Updated: 2019/08/17 13:11:38 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_P_H
 # define FT_P_H
 
-# include "../libft/includes/libft.h"
+# include "../libft/libft/includes/libft.h"
 # include <sys/select.h>
 # include <sys/types.h>
 
